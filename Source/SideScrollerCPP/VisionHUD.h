@@ -25,8 +25,6 @@ class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 	TArray<FColor> MiniMapSurfData;
 
 	AVisionHUD();
-
-	~AVisionHUD();
 	
 	virtual void DrawHUD() override;
 

@@ -1,4 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+* VisionHUD: Heads-Up Display class for machine vision projects with UnrealEngine4
+*
+* Copyright (C) 2017 Simon D. Levy
+*
+* MIT License
+*/
 
 #include "VisionHUD.h"
 
@@ -18,10 +24,6 @@ AVisionHUD::AVisionHUD()
 	MiniMapTexture->SRGB = MiniMapTextureRenderTarget->SRGB;
 
 	MiniMapRenderTarget = MiniMapTextureRenderTarget->GameThread_GetRenderTargetResource();
-}
-
-AVisionHUD::~AVisionHUD()
-{
 }
 
 void AVisionHUD::DrawHUD()
