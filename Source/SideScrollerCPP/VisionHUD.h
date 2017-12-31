@@ -6,7 +6,6 @@
 #include "Engine.h"
 #include "GameFramework/Character.h"
 #include "Engine/TextureRenderTarget2D.h"
-#include "Runtime/Engine/Public/HighResScreenshot.h"
 
 #include "VisionHUD.generated.h"
 
@@ -40,9 +39,4 @@ class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 	const float BORDER_WIDTH = 2.0f;
 
 	void drawBorder(float lx, float uy, float rx, float by);
-
-	void SaveRenderTargetToDisk(UTextureRenderTarget2D* InRenderTarget, FString Filename);
-
-
-	bool wrotefile;
 };

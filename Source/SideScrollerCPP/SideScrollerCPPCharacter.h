@@ -21,15 +21,6 @@ class ASideScrollerCPPCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
-	/** Access to MiniMap camera */
-	class UCameraComponent* MiniMapCameraComponent;
-
-	/** Access to MiniMap pixels */
-	UTextureRenderTarget2D* MiniMapTextureRenderTarget;
-	UTexture2D *MiniMapTexture;
-	FRenderTarget *MiniMapRenderTarget;
-	TArray<FColor> MiniMapSurfData;
-
 	/** On-screen debugging */
 	const FColor DEBUG_TEXT_COLOR = FColor::Yellow;
 	const float  DEBUG_TEXT_SCALE = 2.f;

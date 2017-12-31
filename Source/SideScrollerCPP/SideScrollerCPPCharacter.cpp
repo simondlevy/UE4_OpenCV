@@ -44,21 +44,6 @@ ASideScrollerCPPCharacter::ASideScrollerCPPCharacter()
 	GetCharacterMovement()->MaxWalkSpeed = 600.f;
 	GetCharacterMovement()->MaxFlySpeed = 600.f;
 
-	// Get Minimap render target from blueprint
-	//static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> MiniMapTexObj(TEXT("Texture2D'/Game/T_Minimap'"));
-	static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> MiniMapTexObj(TEXT("/Game/T_Minimap"));
-	MiniMapTextureRenderTarget = MiniMapTexObj.Object;
-
-	// Creates Texture2D to store MiniMapTex content
-	MiniMapTexture = UTexture2D::CreateTransient(MiniMapTextureRenderTarget->SizeX, MiniMapTextureRenderTarget->SizeY, PF_B8G8R8A8);
-
-#if WITH_EDITORONLY_DATA
-	MiniMapTexture->MipGenSettings = TMGS_NoMipmaps;
-#endif
-	MiniMapTexture->SRGB = MiniMapTextureRenderTarget->SRGB;
-
-	MiniMapRenderTarget = MiniMapTextureRenderTarget->GameThread_GetRenderTargetResource();
-
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named MyCharacter (to avoid direct content references in C++)
 }
@@ -96,40 +81,9 @@ void ASideScrollerCPPCharacter::dbgprintf(const char * fmt, ...)
 
 void ASideScrollerCPPCharacter::Tick(float DeltaSeconds)
 {
+	Super::Tick(DeltaSeconds);
 
-    // Adapted from https://answers.unrealengine.com/questions/193827/how-to-get-texture-pixels-using-utexturerendertarg.html
-
-    // Read the pixels from the RenderTarget and store them in a FColor array
-	MiniMapRenderTarget->ReadPixels(MiniMapSurfData);
-
-    // Lock and copies the data between the textures
-    /*
-    void* TextureData = MiniMapTexture->PlatformData->Mips[0].BulkData.Lock(LOCK_READ_WRITE);
-    const int32 TextureDataSize = SurfData.Num() * 4;
-    FMemory::Memcpy(TextureData, SurfData.GetData(), TextureDataSize);
-    MiniMapTexture->PlatformData->Mips[0].BulkData.Unlock();
-
-    // Apply MiniMapTexture changes to GPU memory
-    MiniMapTexture->UpdateResource();*/
-
-    //FTexture2DMipMap* MyMipMap = &MiniMapTex->PlatformData->Mips[0];
-    //int x = 0;
-    //int y = 0;
-    //dbgprintf("%d %d %d", PixelColor.R, PixelColor.G, PixelColor.B);
-
-	/*
-	for (int x = 0; x < MiniMapTextureRenderTarget->SizeX; ++x) {
-
-		for (int y = 0; y < MiniMapTextureRenderTarget->SizeY; ++y) {
-
-			FColor PixelColor = MiniMapSurfData[x + y * MiniMapTextureRenderTarget->SizeX];
-
-			// RGB->gray formula from https ://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/
-			float gray = 0.21 *PixelColor.R + 0.72 * PixelColor.G + 0.07 * PixelColor.B;
-		}
-	}
-
-	dbgprintf("%3d FPS", (int)(1/DeltaSeconds));*/
+	dbgprintf("%3d FPS", (int)(1/DeltaSeconds));
 }
 
 
