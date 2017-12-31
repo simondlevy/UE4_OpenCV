@@ -63,6 +63,5 @@ void AVisionHUD::DrawHUD()
 
 void AVisionHUD::drawBorder(float lx, float uy, float rx, float by)
 {
-
 	DrawLine(lx, uy, rx, by, BORDER_COLOR, BORDER_WIDTH);
 }
