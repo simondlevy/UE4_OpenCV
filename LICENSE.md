@@ -1,6 +1,6 @@
-TinyEKF
+UE4_OpticalFlow
 
-Copyright (c) Simon D. Levy
+Copyright (c) Simon D. Levy 2017
 
 All rights reserved. 
 
