@@ -5,12 +5,12 @@
 AVisionHUD::AVisionHUD()
 {
 	// Get Minimap render target from blueprint
-	static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> MiniMapTexObj(TEXT("/Game/T_Minimap"));
+	static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> MiniMapTexObj(RENDER_TARGET_NAME);
 	MiniMapTextureRenderTarget = MiniMapTexObj.Object;
 
 	// Creates Texture2D to store MiniMapTex content
 	// NB: This should match the Render Target Format specified in the T_Minimap blueprint
-	MiniMapTexture = UTexture2D::CreateTransient(MiniMapTextureRenderTarget->SizeX, MiniMapTextureRenderTarget->SizeY, PF_B8G8R8A8);
+	MiniMapTexture = UTexture2D::CreateTransient(MiniMapTextureRenderTarget->SizeX, MiniMapTextureRenderTarget->SizeY, RENDER_TARGET_PIXEL_FORMAT);
 
 #if WITH_EDITORONLY_DATA
 	MiniMapTexture->MipGenSettings = TMGS_NoMipmaps;
@@ -52,8 +52,8 @@ void AVisionHUD::DrawHUD()
 		}
 	}
 
-	float rightx = LEFTX + WIDTH;
-	float bottomy = TOPY + HEIGHT;
+	float rightx = LEFTX + cols;
+	float bottomy = TOPY + rows;
 
 	drawBorder(LEFTX, TOPY, rightx, TOPY);
 	drawBorder(rightx, TOPY, rightx, bottomy);

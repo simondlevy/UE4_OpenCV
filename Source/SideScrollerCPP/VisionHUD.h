@@ -30,13 +30,15 @@ class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 	
 	virtual void DrawHUD() override;
 
-	const float LEFTX = 1600.f;
-	const float TOPY = 600.f;
-	const float WIDTH = 256.f;
-	const float HEIGHT = 128.f;
-
+	// Arbirary params for display
+	const float LEFTX = 45.f;
+	const float TOPY = 90.f;
 	const FLinearColor BORDER_COLOR = FLinearColor::Yellow;
 	const float BORDER_WIDTH = 2.0f;
+
+	// These should agree with the specification of the render target in your blueprint
+	const wchar_t * RENDER_TARGET_NAME = L"/Game/T_Minimap";
+	const EPixelFormat RENDER_TARGET_PIXEL_FORMAT = PF_B8G8R8A8;
 
 	void drawBorder(float lx, float uy, float rx, float by);
 };
