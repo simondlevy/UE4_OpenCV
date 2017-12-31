@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/*
+* VisionHUD: Heads-Up Display class for machine vision projects with UnrealEngine4
+*
+* Adapted from https://answers.unrealengine.com/questions/193827/how-to-get-texture-pixels-using-utexturerendertarg.html
+*
+* Copyright (C) 2017 Simon D. Levy
+*
+* MIT License
+*/
 
 #pragma once
 
@@ -16,6 +24,8 @@ UCLASS()
 class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 {
 	GENERATED_BODY()
+
+private:
 
 	/** Access to MiniMap camera stream */
 	UCameraComponent* MiniMapCameraComponent;

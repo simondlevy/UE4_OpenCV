@@ -7,8 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-#include <stdarg.h>
-#include <stdio.h>
+#include "Debug.h"
 
 ASideScrollerCPPCharacter::ASideScrollerCPPCharacter()
 {
@@ -62,28 +61,12 @@ void ASideScrollerCPPCharacter::SetupPlayerInputComponent(class UInputComponent*
 	PlayerInputComponent->BindTouch(IE_Released, this, &ASideScrollerCPPCharacter::TouchStopped);
 }
 
-void ASideScrollerCPPCharacter::dbgprintf(const char * fmt, ...)
-{
-	va_list ap;
-	va_start(ap, fmt);
-	char buf[200];
-	vsnprintf(buf, 200, fmt, ap);
-
-	if (GEngine) {
-
-		// 0 = overwrite; 5.0f = arbitrary time to display
-		GEngine->AddOnScreenDebugMessage(0, 5.0f, DEBUG_TEXT_COLOR, FString(buf), true, FVector2D(DEBUG_TEXT_SCALE, DEBUG_TEXT_SCALE));
-	}
-
-	va_end(ap);
-
-}
 
 void ASideScrollerCPPCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	dbgprintf("%3d FPS", (int)(1/DeltaSeconds));
+	Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
 }
 
 

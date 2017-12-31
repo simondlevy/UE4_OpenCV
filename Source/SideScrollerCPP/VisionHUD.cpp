@@ -1,6 +1,8 @@
 /*
 * VisionHUD: Heads-Up Display class for machine vision projects with UnrealEngine4
 *
+* Adapted from https://answers.unrealengine.com/questions/193827/how-to-get-texture-pixels-using-utexturerendertarg.html
+*
 * Copyright (C) 2017 Simon D. Levy
 *
 * MIT License
@@ -14,8 +16,7 @@ AVisionHUD::AVisionHUD()
 	static ConstructorHelpers::FObjectFinder<UTextureRenderTarget2D> MiniMapTexObj(RENDER_TARGET_NAME);
 	MiniMapTextureRenderTarget = MiniMapTexObj.Object;
 
-	// Creates Texture2D to store MiniMapTex content
-	// NB: This should match the Render Target Format specified in the T_Minimap blueprint
+	// Create Texture2D to store MiniMapTex content
 	MiniMapTexture = UTexture2D::CreateTransient(MiniMapTextureRenderTarget->SizeX, MiniMapTextureRenderTarget->SizeY, RENDER_TARGET_PIXEL_FORMAT);
 
 #if WITH_EDITORONLY_DATA
@@ -28,10 +29,7 @@ AVisionHUD::AVisionHUD()
 
 void AVisionHUD::DrawHUD()
 {
-
 	Super::DrawHUD();	
-
-	// Adapted from https://answers.unrealengine.com/questions/193827/how-to-get-texture-pixels-using-utexturerendertarg.html
 
 	// Read the pixels from the RenderTarget and store them in a FColor array
 	MiniMapRenderTarget->ReadPixels(MiniMapSurfData);
@@ -39,6 +37,7 @@ void AVisionHUD::DrawHUD()
 	int rows = MiniMapTextureRenderTarget->SizeY;
 	int cols = MiniMapTextureRenderTarget->SizeX;
 
+	// Render the pixels one at a time, while storing a grayscale copy
 	for (int x = 0; x < cols; ++x) {
 
 		for (int y = 0; y < rows; ++y) {
@@ -53,6 +52,8 @@ void AVisionHUD::DrawHUD()
 			//imgdata[k] = (byte)(0.21 *PixelColor.R + 0.72 * PixelColor.G + 0.07 * PixelColor.B);
 		}
 	}
+
+	// Draw a border around the image
 
 	float rightx = LEFTX + cols;
 	float bottomy = TOPY + rows;

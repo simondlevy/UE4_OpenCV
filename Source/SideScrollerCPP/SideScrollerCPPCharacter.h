@@ -21,11 +21,6 @@ class ASideScrollerCPPCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
-	/** On-screen debugging */
-	const FColor DEBUG_TEXT_COLOR = FColor::Yellow;
-	const float  DEBUG_TEXT_SCALE = 2.f;
-
-	void dbgprintf(const char* fmt, ...);
 
 protected:
 
