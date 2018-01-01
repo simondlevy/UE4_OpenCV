@@ -31,10 +31,13 @@ AVisionHUD::AVisionHUD()
 	cols = MiniMapTextureRenderTarget->SizeX;
 
 	imagergb = new uint16_t[rows*cols*3];
+
+	flow = new OpticalFlow(rows, cols);
 }
 
 AVisionHUD::~AVisionHUD()
 {
+	delete flow;
 	delete imagergb;
 }
 

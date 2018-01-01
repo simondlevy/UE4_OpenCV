@@ -7,7 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-#include "Debug.h"
+#include "OnscreenDebug.h"
 
 ASideScrollerCPPCharacter::ASideScrollerCPPCharacter()
 {

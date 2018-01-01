@@ -15,6 +15,9 @@
 #include "GameFramework/Character.h"
 #include "Engine/TextureRenderTarget2D.h"
 
+// Replace with whatever machine-vision algorithm you like
+#include "OpticalFlow.h"
+
 #include "VisionHUD.generated.h"
 
 /**
@@ -37,6 +40,8 @@ private:
 	AVisionHUD();
 
 	~AVisionHUD();
+
+	OpticalFlow* flow;
 	
 	virtual void DrawHUD() override;
 
