@@ -27,7 +27,7 @@ class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 
 private:
 
-	/** Access to MiniMap camera stream */
+	// Access to MiniMap camera stream
 	UCameraComponent* MiniMapCameraComponent;
 	UTextureRenderTarget2D* MiniMapTextureRenderTarget;
 	UTexture2D* MiniMapTexture;
@@ -35,8 +35,12 @@ private:
 	TArray<FColor> MiniMapSurfData;
 
 	AVisionHUD();
+
+	~AVisionHUD();
 	
 	virtual void DrawHUD() override;
+
+	void drawBorder(float lx, float uy, float rx, float by);
 
 	// Arbirary params for display
 	const float LEFTX = 45.f;
@@ -48,5 +52,10 @@ private:
 	const wchar_t * RENDER_TARGET_NAME = L"/Game/T_Minimap";
 	const EPixelFormat RENDER_TARGET_PIXEL_FORMAT = PF_B8G8R8A8;
 
-	void drawBorder(float lx, float uy, float rx, float by);
+	// Computed by constructor, used in DrawHUD
+	int rows;
+	int cols;
+
+	// 24-bit color
+	uint16_t* imagergb;
 };
