@@ -45,7 +45,7 @@ void AVisionHUD::DrawHUD()
 	// Read the pixels from the RenderTarget and store them in a FColor array
 	MiniMapRenderTarget->ReadPixels(MiniMapSurfData);
 
-	// Render the pixels one at a time, while storing a grayscale copy
+	// Render the pixels one at a time, while storing a copy
 	for (int x = 0; x < cols; ++x) {
 
 		for (int y = 0; y < rows; ++y) {
