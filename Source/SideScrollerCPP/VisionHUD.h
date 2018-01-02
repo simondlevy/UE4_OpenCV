@@ -15,9 +15,6 @@
 #include "GameFramework/Character.h"
 #include "Engine/TextureRenderTarget2D.h"
 
-// Replace with whatever machine-vision algorithm you like
-#include "OpticalFlow.h"
-
 #include "VisionHUD.generated.h"
 
 /**
@@ -28,7 +25,7 @@ class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 {
 	GENERATED_BODY()
 
-private:
+protected:
 
 	// Access to MiniMap camera stream
 	UCameraComponent* MiniMapCameraComponent;
@@ -41,7 +38,7 @@ private:
 
 	~AVisionHUD();
 
-	OpticalFlow* flow;
+	virtual void processImage(uint16_t* image) { }
 	
 	virtual void DrawHUD() override;
 
@@ -62,5 +59,5 @@ private:
 	int cols;
 
 	// 24-bit color
-	uint16_t* imagergb;
+	uint8_t* imagergb;
 };

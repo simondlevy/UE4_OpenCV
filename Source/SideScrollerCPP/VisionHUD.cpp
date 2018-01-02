@@ -30,14 +30,11 @@ AVisionHUD::AVisionHUD()
 	rows = MiniMapTextureRenderTarget->SizeY;
 	cols = MiniMapTextureRenderTarget->SizeX;
 
-	imagergb = new uint16_t[rows*cols*3];
-
-	flow = new OpticalFlow(rows, cols);
+	imagergb = new uint8_t[rows*cols*3];
 }
 
 AVisionHUD::~AVisionHUD()
 {
-	delete flow;
 	delete imagergb;
 }
 
@@ -57,14 +54,9 @@ void AVisionHUD::DrawHUD()
 
 			FColor PixelColor = MiniMapSurfData[k];
 
-			DrawRect(PixelColor, LEFTX+x, TOPY+y, 1, 1);
-
 			imagergb[k*3]   = PixelColor.R;
 			imagergb[k*3+1] = PixelColor.G;
 			imagergb[k*3+2] = PixelColor.B;
-
-			// RGB->gray formula from https ://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/
-			//imgdata[k] = (byte)(0.21 *PixelColor.R + 0.72 * PixelColor.G + 0.07 * PixelColor.B);
 		}
 	}
 
