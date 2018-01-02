@@ -8,7 +8,8 @@
 * MIT License
 */
 
-#include "Engine/TextureRenderTarget2D.h"
+#include "Engine.h"
+
 #include <cstdint>
 
 class VisionAlgorithm {
@@ -17,6 +18,6 @@ public:
 
 	virtual ~VisionAlgorithm() { }
 
-	virtual void perform(uint8_t* imagergb, UTextureRenderTarget2D* textureRenderTarget) = 0;
+	virtual void perform(uint8_t* imagergb) = 0;
 };
 

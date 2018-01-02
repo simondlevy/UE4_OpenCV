@@ -35,7 +35,7 @@ AVisionHUD::AVisionHUD()
 	imagergb = new uint8_t[rows*cols*3];
 
 	// Specify a machine-vision algorithm
-	algorithm = new OpticalFlow(rows, cols);
+	algorithm = new OpticalFlow(this, rows, cols);
 }
 
 AVisionHUD::~AVisionHUD()
@@ -79,7 +79,7 @@ void AVisionHUD::DrawHUD()
 	drawBorder(LEFTX, bottomy, LEFTX, TOPY);
 
 	// Run your vision algorithm
-	algorithm->perform(imagergb, MiniMapTextureRenderTarget);
+	algorithm->perform(imagergb);
 }
 
 void AVisionHUD::drawBorder(float lx, float uy, float rx, float by)
