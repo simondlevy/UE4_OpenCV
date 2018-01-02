@@ -42,6 +42,9 @@ void AVisionHUD::DrawHUD()
 {
 	Super::DrawHUD();	
 
+	// Draw the image to the HUD
+	DrawTextureSimple(MiniMapTextureRenderTarget, LEFTX, TOPY, 1.0f, true);
+
 	// Read the pixels from the RenderTarget and store them in a FColor array
 	MiniMapRenderTarget->ReadPixels(MiniMapSurfData);
 
