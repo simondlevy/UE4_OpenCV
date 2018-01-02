@@ -15,7 +15,8 @@ class VisionAlgorithm {
 
 public:
 
-	virtual void perform(uint8_t* imagergb, UTextureRenderTarget2D* textureRenderTarget) = 0;
+	virtual ~VisionAlgorithm() { }
 
+	virtual void perform(uint8_t* imagergb, UTextureRenderTarget2D* textureRenderTarget) = 0;
 };
 

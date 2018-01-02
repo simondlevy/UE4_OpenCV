@@ -22,6 +22,10 @@ public:
 
 private:
 
-	uint16_t * imgprev;
-	uint16_t * imgcurr;
+	int _rows;
+	int _cols;
+	bool _ready;
+
+	uint16_t* _imgprev;
+	uint16_t* _imgcurr;
 };
