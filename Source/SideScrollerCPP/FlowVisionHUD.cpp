@@ -24,6 +24,3 @@ void AFlowVisionHUD::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
-
-// RGB->gray formula from https ://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/
-//imgdata[k] = (byte)(0.21 *PixelColor.R + 0.72 * PixelColor.G + 0.07 * PixelColor.B);

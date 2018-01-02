@@ -10,6 +10,9 @@
 
 #include "VisionHUD.h"
 
+// Use whatever machine-vision algorithm you like
+#include "OpticalFlow.h"
+
 AVisionHUD::AVisionHUD()
 {
 	// Get Minimap render target from blueprint
@@ -26,11 +29,13 @@ AVisionHUD::AVisionHUD()
 
 	MiniMapRenderTarget = MiniMapTextureRenderTarget->GameThread_GetRenderTargetResource();
 
-	// Allocate memory for current, previous grayscale images
+	// Allocate memory for RGB image bytes
 	rows = MiniMapTextureRenderTarget->SizeY;
 	cols = MiniMapTextureRenderTarget->SizeX;
-
 	imagergb = new uint8_t[rows*cols*3];
+
+	// Specify a machine-vision algorithm
+	algorithm = new OpticalFlow(rows, cols);
 }
 
 AVisionHUD::~AVisionHUD()
@@ -72,6 +77,9 @@ void AVisionHUD::DrawHUD()
 	drawBorder(rightx, TOPY, rightx, bottomy);
 	drawBorder(rightx, bottomy, LEFTX, bottomy);
 	drawBorder(LEFTX, bottomy, LEFTX, TOPY);
+
+	// Run your vision algorithm
+	algorithm->perform(imagergb, MiniMapTextureRenderTarget);
 }
 
 void AVisionHUD::drawBorder(float lx, float uy, float rx, float by)

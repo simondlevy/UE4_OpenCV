@@ -15,6 +15,8 @@
 #include "GameFramework/Character.h"
 #include "Engine/TextureRenderTarget2D.h"
 
+#include "VisionAlgorithm.h"
+
 #include "VisionHUD.generated.h"
 
 /**
@@ -27,23 +29,6 @@ class SIDESCROLLERCPP_API AVisionHUD : public AHUD
 
 protected:
 
-	// Access to MiniMap camera stream
-	UCameraComponent* MiniMapCameraComponent;
-	UTextureRenderTarget2D* MiniMapTextureRenderTarget;
-	UTexture2D* MiniMapTexture;
-	FRenderTarget* MiniMapRenderTarget;
-	TArray<FColor> MiniMapSurfData;
-
-	AVisionHUD();
-
-	~AVisionHUD();
-
-	virtual void processImage(uint16_t* image) { }
-	
-	virtual void DrawHUD() override;
-
-	void drawBorder(float lx, float uy, float rx, float by);
-
 	// Arbirary params for display
 	const float LEFTX = 45.f;
 	const float TOPY = 90.f;
@@ -54,10 +39,28 @@ protected:
 	const wchar_t * RENDER_TARGET_NAME = L"/Game/T_Minimap";
 	const EPixelFormat RENDER_TARGET_PIXEL_FORMAT = PF_B8G8R8A8;
 
+	// Access to MiniMap camera stream
+	UCameraComponent* MiniMapCameraComponent;
+	UTextureRenderTarget2D* MiniMapTextureRenderTarget;
+	UTexture2D* MiniMapTexture;
+	FRenderTarget* MiniMapRenderTarget;
+	TArray<FColor> MiniMapSurfData;
+
+	AVisionHUD();
+
+	~AVisionHUD();
+	
+	virtual void DrawHUD() override;
+
+	void drawBorder(float lx, float uy, float rx, float by);
+
 	// Computed by constructor, used in DrawHUD
 	int rows;
 	int cols;
 
 	// 24-bit color
 	uint8_t* imagergb;
+
+	// implementation of your vision algorithm
+	VisionAlgorithm* algorithm;
 };

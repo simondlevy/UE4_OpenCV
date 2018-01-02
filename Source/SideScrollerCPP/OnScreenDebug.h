@@ -1,5 +1,5 @@
 /*
-* OnScreenDebug: Simple on-screen debugging support for UE4
+* OnScreenDebug: Simple on-screen debugging support for UnrealEngine4
 *
 * Copyright (C) 2017 Simon D. Levy
 *
