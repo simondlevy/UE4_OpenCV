@@ -10,7 +10,8 @@
 
 #include "OpticalFlow.h"
 
-OpticalFlow::OpticalFlow(AHUD* hud, int rows, int cols) : _hud(hud), _rows(rows), _cols(cols)
+OpticalFlow::OpticalFlow(AHUD* hud, int leftx, int topy, int rows, int cols) : 
+	_leftx(leftx), _topy(topy), _hud(hud),  _rows(rows), _cols(cols)
 {
     _imgcurr = new uint16_t [rows*cols];
     _imgprev = new uint16_t [rows*cols];
@@ -34,7 +35,7 @@ void OpticalFlow::perform(uint8_t* imagergb)
 	// Fake up optical flow with a line for now
 	if (_ready) {
 
-		_hud->Draw2DLine(0, 0, 10, 10, FColor::Yellow);
+		_hud->Draw2DLine(_leftx, _topy, _leftx+20, _topy+20, FColor::Yellow);
 	}
 
 	_ready = true;

@@ -14,7 +14,7 @@ class OpticalFlow : public VisionAlgorithm {
 
 public:
 
-    OpticalFlow(AHUD*hud, int rows, int cols);
+    OpticalFlow(AHUD*hud, int leftx, int topy, int rows, int cols);
 
     ~OpticalFlow();
 
@@ -22,6 +22,8 @@ public:
 
 private:
 
+	int _leftx;
+	int _topy;
 	int _rows;
 	int _cols;
 	bool _ready;

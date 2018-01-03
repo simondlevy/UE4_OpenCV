@@ -35,7 +35,7 @@ AVisionHUD::AVisionHUD()
 	imagergb = new uint8_t[rows*cols*3];
 
 	// Specify a machine-vision algorithm
-	algorithm = new OpticalFlow(this, rows, cols);
+	algorithm = new OpticalFlow(this, LEFTX, TOPY, rows, cols);
 }
 
 AVisionHUD::~AVisionHUD()
