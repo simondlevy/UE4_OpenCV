@@ -32,4 +32,7 @@ private:
 
 	uint8_t* _imgprev;
 	uint8_t* _imgcurr;
+
+	static void ofoLK_Plus_2D(uint8_t *curr_img, uint8_t *last_img, uint16_t rows, uint16_t cols, uint16_t scale, int16_t * ofx, int16_t * ofy);
+
 };
