@@ -30,6 +30,6 @@ private:
 
 	AHUD* _hud;
 
-	uint16_t* _imgprev;
-	uint16_t* _imgcurr;
+	uint8_t* _imgprev;
+	uint8_t* _imgcurr;
 };
