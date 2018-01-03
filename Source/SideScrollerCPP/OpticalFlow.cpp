@@ -93,15 +93,18 @@ void OpticalFlow::ofoLK_Plus_2D(uint8_t *curr_img, uint8_t *last_img, uint16_t r
 	//determinant
 	int64_t detA = ((int64_t)(A11)*A22 - (int64_t)(A12)*A12);
 
+	int64_t XS = 0;
+	int64_t YS = 0;
+
 	// Compute final output. Note use of "scale" here to multiply 2*top   
 	// to a larger number so that it may be meaningfully divided using 
-	// fixed point arithmetic
-	int64_t XS = ((int64_t)(b1)*A22 - (int64_t)(b2)*A12) * scale / detA;
-	int64_t YS = ((int64_t)(b2)*A11 - (int64_t)(b1)*A12) * scale / detA;
+	// fixed point arithmetic	
+	if (detA != 0) {
+		XS = ((int64_t)(b1)*A22 - (int64_t)(b2)*A12) * scale / detA;
+		YS = ((int64_t)(b2)*A11 - (int64_t)(b1)*A12) * scale / detA;
+	}
 
 	(*ofx) = (int16_t)XS;
 	(*ofy) = (int16_t)YS;
 }
-
-
 
