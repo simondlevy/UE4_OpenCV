@@ -47,6 +47,6 @@ void EdgeDetection::perform(uint8_t* imagergb)
 		cv::Point point = nonZeroCoordinates.at<cv::Point>(i);
 		int x = _leftx + point.x;
 		int y = _topy + point.y;
-		_hud->DrawRect(FColor::Yellow, x, y, 1, 1);
+		_hud->DrawRect(EDGE_COLOR, x, y, 1, 1);
 	}
 }

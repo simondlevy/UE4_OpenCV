@@ -27,6 +27,8 @@ private:
 	const int RATIO         = 3;
 	const int KERNEL_SIZE   = 3;
 
+	FColor EDGE_COLOR = FColor::Green;
+
 	int _leftx;
 	int _topy;
 	int _rows;

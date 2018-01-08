@@ -1,3 +1,5 @@
+<img src="ue4opencv.png" width=500>
+
 # About
 
 # Prerequisites
@@ -30,6 +32,7 @@ You should first clone the UE4_OpencCV repository into your <b>Documents/Unreal 
 that folder if it doesn't already exist.
 
 Navigate to the UE4_OpenCV folder, right-click on
+
 <b>OpenCV.uproject</b>, and select the menu item <b>Generate Visual Studio project files</b>.  This
 should create a file <b>UE4_OpenCV.sln</b> and some new folders.
 If you don't get the new .sln file, it's probably because UE4 cannot find a C++ compiler for
