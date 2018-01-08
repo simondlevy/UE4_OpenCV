@@ -26,7 +26,7 @@ public:
 
 	/**
 	* Your implementing class should provide this method.
-	* @param imagergb RGB image: each pixels is Red byte followed by Blue byte followed by Green byte.
+	* @param imagergb RGB image in row-major order. Each pixel is Red byte followed by Blue byte followed by Green byte.
 	*/
 	virtual void perform(uint8_t* imagergb) = 0;
 };

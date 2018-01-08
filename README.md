@@ -83,7 +83,7 @@ OpenCV algorithm(s) of your choice.
 
 * [OnscreenDebug.h](Source/SideScrollerCPP/OnscreenDebug.h) / 
 [OnscreenDebug.cpp](Source/SideScrollerCPP/OnscreenDebug.cpp) This class has nothing to do with machine vision; instead,
-it's provides a simple way to add onscreen debugging printout to your UE4 projects.  In this project, I'm 
+it provides a simple way to add onscreen debugging printout to your UE4 projects.  In this project, we're
 [using](Source/SideScrollerCPP/SideScrollerCPPCharacter.cpp#L65-L70)  it to display the frame rate.
 
 * [VisionAlgorithm.h](Source/SideScrollerCPP/VisionAlgorithm.h) Subclass this class to run your machine-vision 
@@ -92,8 +92,8 @@ algorithm.
 * [VisionHUD.h](Source/SideScrollerCPP/VisionHUD.h) / 
 [VisionHUD.cpp](Source/SideScrollerCPP/VisionHUD.cpp) This code requires almost no modification to support a new
 vision algorithm.  All you need to do is change the <b>#include</b> at the 
-[top](Source/SideScrollerCPP/VisionHUD.cpp#L13-L14) of the implementation, and the class constructor that
-you [invoke]((Source/SideScrollerCPP/VisionHUD.cpp#L37-L38).
+[top](Source/SideScrollerCPP/VisionHUD.cpp#L13-L14) of the implementation, and the corresponding class constructor that
+you [invoke](Source/SideScrollerCPP/VisionHUD.cpp#L37-L38).
 
 
 
