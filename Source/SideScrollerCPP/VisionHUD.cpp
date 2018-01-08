@@ -11,7 +11,7 @@
 #include "VisionHUD.h"
 
 // Use whatever machine-vision algorithm you like
-#include "OpticalFlow.h"
+#include "EdgeDetection.h"
 
 AVisionHUD::AVisionHUD()
 {
@@ -35,7 +35,7 @@ AVisionHUD::AVisionHUD()
 	imagergb = new uint8_t[rows*cols*3];
 
 	// Specify a machine-vision algorithm
-	algorithm = new OpticalFlow(this, LEFTX, TOPY, rows, cols);
+	algorithm = new EdgeDetection(this, LEFTX, TOPY, rows, cols);
 }
 
 AVisionHUD::~AVisionHUD()
