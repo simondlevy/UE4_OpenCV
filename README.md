@@ -37,15 +37,15 @@ UE4 to run consistently on Linux, I cannot guarantee that this will work.</b>
 You should first clone the UE4_OpencCV repository into your <b>Documents/Unreal Projects</b> folder, creating
 that folder if it doesn't already exist.
 
-Navigate to the UE4_OpenCV folder, right-click on
-
-<b>OpenCV.uproject</b>, and select the menu item <b>Generate Visual Studio project files</b>.  This
-should create a file <b>UE4_OpenCV.sln</b> and some new folders.
-If you don't get the new .sln file, it's probably because UE4 cannot find a C++ compiler for
-the version of Visual Studio you've installed (see discussion 
-[here](https://docs.unrealengine.com/latest/INT/Programming/Development/VisualStudioSetup/#beforesetting-upyourue4-to-vsworkflow)).  Double-clicking on the .sln file should launch Visual Studio.  The first time you
-launch Visual Studio, it can take several minutes to parse up all the C++ source
-code for the UE4 engine.  
+Navigate to the UE4_OpenCV folder, right-click on <b>OpenCV.uproject</b>, and
+select the menu item <b>Generate Visual Studio project files</b>.  This should
+create a file <b>UE4_OpenCV.sln</b> and some new folders.  If you don't get the
+new .sln file, it's probably because UE4 cannot find a C++ compiler for the
+version of Visual Studio you've installed (see discussion
+[here](https://docs.unrealengine.com/latest/INT/Programming/Development/VisualStudioSetup/#beforesetting-upyourue4-to-vsworkflow)).
+Double-clicking on the .sln file should launch Visual Studio.  The first time
+you launch Visual Studio, it can take several minutes to parse up all the C++
+source code for the UE4 engine.  
 
 Once Visual Studio is done parsing the UE4 source code, do <b>Build / Build Solution</b>.  This will create
 a <b>Binaries</b> folder.  Navigate to <b>ThirdParty/OpenCV/Libraries/Win64</b>, and copy/paste the 
