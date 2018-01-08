@@ -12,12 +12,22 @@
 
 #include <cstdint>
 
+/**
+*  Abstract machine-vision class.
+*/
 class VisionAlgorithm {
 
 public:
 
+	/**
+	 * Mandatory virtual destructor to avoid compiler errors.
+	*/
 	virtual ~VisionAlgorithm() { }
 
+	/**
+	* Your implementing class should provide this method.
+	* @param imagergb RGB image: each pixels is Red byte followed by Blue byte followed by Green byte.
+	*/
 	virtual void perform(uint8_t* imagergb) = 0;
 };
 

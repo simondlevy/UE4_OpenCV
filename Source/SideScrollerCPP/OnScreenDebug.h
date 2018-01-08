@@ -11,7 +11,7 @@
 #include "CoreMinimal.h"
 
 /**
- * 
+ *  Provides a C-like printf() method for onscreen debugging.
  */
 class Debug
 {
