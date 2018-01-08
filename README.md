@@ -1,4 +1,4 @@
-<img src="ue4opencv.png" width=500>
+<img src="ue4opencv.png" width=800>
 
 # About
 
