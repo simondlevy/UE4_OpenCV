@@ -35,7 +35,5 @@ private:
 	int _cols;
 	bool _ready;
 
-    uint8_t * _imagegray;
-
 	AHUD* _hud;
 };

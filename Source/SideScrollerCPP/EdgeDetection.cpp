@@ -17,12 +17,10 @@
 EdgeDetection::EdgeDetection(AHUD* hud, int leftx, int topy, int rows, int cols) : 
 	_leftx(leftx), _topy(topy), _hud(hud),  _rows(rows), _cols(cols)
 {
-    _imagegray = new uint8_t [rows*cols];
 }
 
 EdgeDetection::~EdgeDetection()
 {
-    delete _imagegray;
 }
 
 void EdgeDetection::perform(uint8_t* imagergb)

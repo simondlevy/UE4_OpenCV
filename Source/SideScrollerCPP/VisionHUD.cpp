@@ -20,7 +20,7 @@ AVisionHUD::AVisionHUD()
 	MiniMapTextureRenderTarget = MiniMapTexObj.Object;
 
 	// Create Texture2D to store MiniMapTex content
-	MiniMapTexture = UTexture2D::CreateTransient(MiniMapTextureRenderTarget->SizeX, MiniMapTextureRenderTarget->SizeY, RENDER_TARGET_PIXEL_FORMAT);
+	UTexture2D* MiniMapTexture = UTexture2D::CreateTransient(MiniMapTextureRenderTarget->SizeX, MiniMapTextureRenderTarget->SizeY, RENDER_TARGET_PIXEL_FORMAT);
 
 #if WITH_EDITORONLY_DATA
 	MiniMapTexture->MipGenSettings = TMGS_NoMipmaps;

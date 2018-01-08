@@ -1,15 +1,12 @@
-// Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
+// Adapted from https://wiki.unrealengine.com/Detailed_Account_Of_Integrating_OpenCV_Into_UE4_With_VS2017
+//
+// MIT License
 
 using UnrealBuildTool;
 using System.IO;
 
-
 public class SideScrollerCPP : ModuleRules
 {
-    private string ThirdPartyPath
-    {
-        get { return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../ThirdParty/")); }
-    }
 
     public SideScrollerCPP(ReadOnlyTargetRules Target) : base(Target)
 	{
@@ -18,6 +15,11 @@ public class SideScrollerCPP : ModuleRules
         PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "RHI", "RenderCore", "ShaderCore" });
 
         LoadOpenCV(Target);
+    }
+
+    private string ThirdPartyPath
+    {
+        get { return Path.GetFullPath(Path.Combine(ModuleDirectory, "../../ThirdParty/")); }
     }
 
     public bool LoadOpenCV(ReadOnlyTargetRules Target)
@@ -38,7 +40,8 @@ public class SideScrollerCPP : ModuleRules
         }
         else
         {
-            string Err = string.Format("{0} dedicated server is made to depend on {1}. We want to avoid this, please correct module dependencies.", Target.Platform.ToString(), this.ToString()); System.Console.WriteLine(Err);
+            string Err = string.Format("{0} dedicated server is made to depend on {1}. We want to avoid this, please correct module dependencies.", Target.Platform.ToString(), this.ToString());
+            System.Console.WriteLine(Err);
         }
 
         if (isLibrarySupported)

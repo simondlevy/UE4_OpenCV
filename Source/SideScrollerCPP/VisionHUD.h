@@ -42,7 +42,6 @@ protected:
 	// Access to MiniMap camera stream
 	UCameraComponent* MiniMapCameraComponent;
 	UTextureRenderTarget2D* MiniMapTextureRenderTarget;
-	UTexture2D* MiniMapTexture;
 	FRenderTarget* MiniMapRenderTarget;
 	TArray<FColor> MiniMapSurfData;
 
