@@ -80,3 +80,12 @@ project.
 * [EdgeDetection.h](Source/SideScrollerCPP/EdgeDetection.h) / 
 [EdgeDetection.cpp](Source/SideScrollerCPP/EdgeDetection.cpp) Modify and/or rename this class to run the
 OpenCV algorithm(s) of your choice.
+
+* [OnscreenDebug.h](Source/SideScrollerCPP/OnscreenDebug.h) / 
+[OnscreenDebug.cpp](Source/SideScrollerCPP/OnscreenDebug.cpp) This class has nothing to do with machine vision; instead,
+it's provides a simple way to add onscreen debugging printout to your UE4 projects.  In this project, I'm 
+[using](Source/SideScrollerCPP/SideScrollerCPPCharacter.cpp#L65-L70)  it to display the frame rate.
+
+
+
+
