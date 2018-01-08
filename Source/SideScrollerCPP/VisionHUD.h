@@ -40,7 +40,6 @@ protected:
 	const EPixelFormat RENDER_TARGET_PIXEL_FORMAT = PF_B8G8R8A8;
 
 	// Access to MiniMap camera stream
-	UCameraComponent* MiniMapCameraComponent;
 	UTextureRenderTarget2D* MiniMapTextureRenderTarget;
 	FRenderTarget* MiniMapRenderTarget;
 	TArray<FColor> MiniMapSurfData;
