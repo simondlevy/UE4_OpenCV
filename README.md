@@ -77,4 +77,6 @@ To add a machine-vision HUD like this to another UE4 C++ project, you should use
 the contents (public and private methods) of this class can be copy/pasted into the .Build.cs class for your
 project.
 
-* [EdgeDetection.h](Source/SideScrollerCPP/EdgeDetection.h) / EdgeDetection.cpp
+* [EdgeDetection.h](Source/SideScrollerCPP/EdgeDetection.h) / 
+[EdgeDetection.cpp](Source/SideScrollerCPP/EdgeDetection.cpp) Modify and/or rename this class to run the
+OpenCV algorithm(s) of your choice.
