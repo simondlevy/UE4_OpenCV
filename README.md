@@ -59,6 +59,17 @@ Then, based on this [video tutorial](https://www.youtube.com/watch?v=adYVI5XYmoI
 used UnrealEditor to a camera to the SideScroller character Blueprint, then added a ScreenCaptureComponent2D
 to the camera, and set the TextureTarget of ScreenCaptureComponent2D to a TextureRenderTarget2D (referred to
 as <b>T_Minimap</b> in the video).  Instead of adding a HUD as a Blueprint in the UnrealEditor, I created
-a [VisionHUD](Source/SideScrollerCPP/VisionHUD.h) class
-in C++, whose constructor [loads](https://github.com/simondlevy/UE4_OpenCV/blob/master/Source/SideScrollerCPP/VisionHUD.cpp#L16-L20) the TextureRenderTarget2D object from the Blueprint and [creates](https://github.com/simondlevy/UE4_OpenCV/blob/master/Source/SideScrollerCPP/VisionHUD.cpp#L22-L30)
+a [VisionHUD](Source/SideScrollerCPP/VisionHUD.h) class in C++, whose
+constructor [loads](Source/SideScrollerCPP/VisionHUD.cpp#L16-L20)
+the TextureRenderTarget2D object from the Blueprint and
+[creates](Source/SideScrollerCPP/VisionHUD.cpp#L22-L30) an FRenderTarget object.  The HUD's DrawHUD method
+[reads](Source/SideScrollerCPP/VisionHUD.cpp#L53-L54) the RGBA pixel values from the FRenderTarget,
+then [stores](Source/SideScrollerCPP/VisionHUD.cpp#L65-L67) the R, G, and B components into an ordinary
+byte array, and [passes](Source/SideScrollerCPP/VisionHUD.cpp#L82) byte array to the OpenCV-based
+machine-vision algorithm.
 
+# Modifying / Extending
+
+To add a machine-vision HUD like this to another UE4 C++ project, you should use the following files:
+
+* [SideScroller.Build.cs](Source/SideScrollerCPP/SideScroller.Build.cs)

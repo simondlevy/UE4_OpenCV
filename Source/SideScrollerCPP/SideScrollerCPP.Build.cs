@@ -7,7 +7,6 @@ using System.IO;
 
 public class SideScrollerCPP : ModuleRules
 {
-
     public SideScrollerCPP(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
