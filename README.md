@@ -49,9 +49,10 @@ source code for the UE4 engine.
 
 Once Visual Studio is done parsing the UE4 source code, do <b>Build / Build Solution</b>.  This will create
 a <b>Binaries</b> folder.  Navigate to <b>ThirdParty/OpenCV/Libraries/Win64</b>, and copy/paste the 
-file <b>opencv_world340.dll</b> to the new <b>Binaries</b> folder.  Finally, hit the <b>F5</b> key to launch
-launch the UE4 editor, and press the Play button. In the upper-left of the display you should see a little 
-camera view from the character's perspective, along with a report of the frame rate (FPS).
+file <b>opencv_world340.dll</b> to the <b>Binaries/Win64</b> folder.  Finally,
+hit the <b>F5</b> key to launch launch the UE4 editor, and press the Play
+button. In the upper-left of the display you should see a little camera view
+from the character's perspective, along with a report of the frame rate (FPS).
 
 # How it works
 
