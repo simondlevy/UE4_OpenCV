@@ -18,7 +18,7 @@ public:
 
     ~EdgeDetection();
 
-	virtual void perform(uint8_t* imagergb) override;
+	virtual void perform(cv::Mat & bgrimg) override;
 
 private:
 

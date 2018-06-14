@@ -1,5 +1,5 @@
 /*
-* VisionHUD: Heads-Up Display class for machine vision projects with UnrealEngine4
+* VisionHUD: Heads-Up Display class for OpenCV projects with UnrealEngine4
 *
 * Adapted from https://answers.unrealengine.com/questions/193827/how-to-get-texture-pixels-using-utexturerendertarg.html
 *
@@ -16,6 +16,8 @@
 #include "Engine/TextureRenderTarget2D.h"
 
 #include "VisionAlgorithm.h"
+
+#include <opencv2/core.hpp>
 
 #include "VisionHUD.generated.h"
 
@@ -53,12 +55,12 @@ protected:
 	void drawBorder(float lx, float uy, float rx, float by);
 
 	// Computed by constructor, used in DrawHUD
-	int rows;
-	int cols;
+	int _rows;
+	int _cols;
 
-	// 24-bit color
-	uint8_t* imagergb;
+	// BGR color bytes array
+	uint8_t* _bgrbytes;
 
 	// implementation of your vision algorithm
-	VisionAlgorithm* algorithm;
+	VisionAlgorithm* _algorithm;
 };

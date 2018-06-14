@@ -10,6 +10,8 @@
 
 #include "Engine.h"
 
+#include <opencv2/core.hpp>
+
 #include <cstdint>
 
 /**
@@ -28,6 +30,6 @@ public:
 	* Your implementing class should provide this method.
 	* @param imagergb RGB image in row-major order. Each pixel is Red byte followed by Blue byte followed by Green byte.
 	*/
-	virtual void perform(uint8_t* imagergb) = 0;
+	virtual void perform(cv::Mat & imagebgr) = 0;
 };
 

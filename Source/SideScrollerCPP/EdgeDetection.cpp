@@ -11,7 +11,6 @@
 #include "EdgeDetection.h"
 #include "OnscreenDebug.h"
 
-#include <opencv2/core.hpp>
 #include <opencv2/video/tracking.hpp>
 
 EdgeDetection::EdgeDetection(AHUD* hud, int leftx, int topy, int rows, int cols) : 
@@ -23,13 +22,11 @@ EdgeDetection::~EdgeDetection()
 {
 }
 
-void EdgeDetection::perform(uint8_t* imagergb)
+void EdgeDetection::perform(cv::Mat & bgrimg)
 {
-    // RGB->gray formula from https ://www.johndcook.com/blog/2009/08/24/algorithms-convert-color-grayscale/
-	cv::Mat gray(_rows, _cols, CV_8UC1);
-	for (int k = 0; k < _rows*_cols; ++k) {
-		gray.at<uint8_t>(k) = (uint8_t)(0.21 * imagergb[3 * k] + 0.72 * imagergb[3 * k + 1] + 0.07 * imagergb[3 * k + 2]);
-	}
+    // Convert color image to grayscale
+    cv::Mat gray;
+    cv::cvtColor(bgrimg, gray, cv::COLOR_BGR2GRAY);
 
 	// Reduce noise with a kernel 3x3
 	cv::Mat detected_edges;

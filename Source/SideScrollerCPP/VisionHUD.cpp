@@ -1,5 +1,5 @@
 /*
-* VisionHUD: Heads-Up Display class for machine vision projects with UnrealEngine4
+* VisionHUD: Heads-Up Display class for OpenCV projects with UnrealEngine4
 *
 * Adapted from https://answers.unrealengine.com/questions/193827/how-to-get-texture-pixels-using-utexturerendertarg.html
 *
@@ -30,18 +30,18 @@ AVisionHUD::AVisionHUD()
 	MiniMapRenderTarget = MiniMapTextureRenderTarget->GameThread_GetRenderTargetResource();
 
 	// Allocate memory for RGB image bytes
-	rows = MiniMapTextureRenderTarget->SizeY;
-	cols = MiniMapTextureRenderTarget->SizeX;
-	imagergb = new uint8_t[rows*cols*3];
+	_rows = MiniMapTextureRenderTarget->SizeY;
+	_cols = MiniMapTextureRenderTarget->SizeX;
+	_bgrbytes = new uint8_t[_rows*_cols*3];
 
 	// Specify a machine-vision algorithm
-	algorithm = new EdgeDetection(this, LEFTX, TOPY, rows, cols);
+	_algorithm = new EdgeDetection(this, LEFTX, TOPY, _rows, _cols);
 }
 
 AVisionHUD::~AVisionHUD()
 {
-	delete imagergb;
-	delete algorithm;
+	delete _bgrbytes;
+	delete _algorithm;
 }
 
 void AVisionHUD::DrawHUD()
@@ -54,33 +54,36 @@ void AVisionHUD::DrawHUD()
 	// Read the pixels from the RenderTarget and store them in a FColor array
 	MiniMapRenderTarget->ReadPixels(MiniMapSurfData);
 
-	// Convert the FColor array to an RGB byte array
-	for (int x = 0; x < cols; ++x) {
+	// Convert the FColor array to a BRG byte array
+	for (int x = 0; x < _cols; ++x) {
 
-		for (int y = 0; y < rows; ++y) {
+		for (int y = 0; y < _rows; ++y) {
 
-			int k = x + y * cols;
+			int k = x + y * _cols;
 
 			FColor PixelColor = MiniMapSurfData[k];
 
-			imagergb[k*3]   = PixelColor.R;
-			imagergb[k*3+1] = PixelColor.G;
-			imagergb[k*3+2] = PixelColor.B;
+			_bgrbytes[k*3]   = PixelColor.B;
+			_bgrbytes[k*3+1] = PixelColor.G;
+			_bgrbytes[k*3+2] = PixelColor.R;
 		}
 	}
 
+    // Convert BGR bytes to OpenCV Mat
+    cv::Mat bgrimg(_rows, _cols, CV_8UC3, _bgrbytes);
+
+	// Run your vision algorithm on the OpenCV Mat
+    _algorithm->perform(bgrimg);
+    
 	// Draw a border around the image
 
-	float rightx = LEFTX + cols;
-	float bottomy = TOPY + rows;
+	float rightx = LEFTX + _cols;
+	float bottomy = TOPY + _rows;
 
 	drawBorder(LEFTX, TOPY, rightx, TOPY);
 	drawBorder(rightx, TOPY, rightx, bottomy);
 	drawBorder(rightx, bottomy, LEFTX, bottomy);
 	drawBorder(LEFTX, bottomy, LEFTX, TOPY);
-
-	// Run your vision algorithm
-	algorithm->perform(imagergb);
 }
 
 void AVisionHUD::drawBorder(float lx, float uy, float rx, float by)
