@@ -29,7 +29,7 @@ AVisionHUD::AVisionHUD()
 
 	MiniMapRenderTarget = MiniMapTextureRenderTarget->GameThread_GetRenderTargetResource();
 
-	// Allocate memory for RGB image bytes
+	// Allocate memory for BGR image bytes
 	_rows = MiniMapTextureRenderTarget->SizeY;
 	_cols = MiniMapTextureRenderTarget->SizeX;
 	_bgrbytes = new uint8_t[_rows*_cols*3];
