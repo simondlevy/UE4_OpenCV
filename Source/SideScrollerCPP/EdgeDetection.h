@@ -14,7 +14,7 @@ class EdgeDetection : public VisionAlgorithm {
 
 public:
 
-    EdgeDetection(AHUD*hud, int leftx, int topy, int rows, int cols);
+    EdgeDetection(AHUD * hud, int leftx, int topy);
 
     ~EdgeDetection();
 
@@ -28,12 +28,4 @@ private:
 	const int KERNEL_SIZE   = 3;
 
 	FColor EDGE_COLOR = FColor::Green;
-
-	int _leftx;
-	int _topy;
-	int _rows;
-	int _cols;
-	bool _ready;
-
-	AHUD* _hud;
 };

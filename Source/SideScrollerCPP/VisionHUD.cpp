@@ -35,7 +35,7 @@ AVisionHUD::AVisionHUD()
 	_bgrbytes = new uint8_t[_rows*_cols*3];
 
 	// Specify a machine-vision algorithm
-	_algorithm = new EdgeDetection(this, LEFTX, TOPY, _rows, _cols);
+	_algorithm = new EdgeDetection(this, LEFTX, TOPY);
 }
 
 AVisionHUD::~AVisionHUD()
