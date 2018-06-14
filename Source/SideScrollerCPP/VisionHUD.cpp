@@ -41,6 +41,7 @@ AVisionHUD::AVisionHUD()
 AVisionHUD::~AVisionHUD()
 {
 	delete imagergb;
+	delete algorithm;
 }
 
 void AVisionHUD::DrawHUD()
