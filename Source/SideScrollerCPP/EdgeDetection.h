@@ -1,10 +1,10 @@
 #pragma once
 
 /*
-* EdgeDetection.h: OpenCV demo algorithm flow for UnrealEngine4
+* EdgeDetection.h: OpenCV demo algorithm for UnrealEngine4
 *
 * Copyright (C) 2017 Simon D. Levy
-*
+
 * MIT License
 */
 
