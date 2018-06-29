@@ -34,10 +34,16 @@ UE4 to run consistently on Linux, I cannot guarantee that this will work.</b>
 
 # Build
 
-You should first clone the UE4_OpencCV repository into your <b>Documents/Unreal Projects</b> folder, creating
+You should first clone the <b>UE4_OpencCV</b> repository into your <b>Documents/Unreal Projects</b> folder, creating
 that folder if it doesn't already exist.
 
-Navigate to the UE4_OpenCV folder, right-click on <b>OpenCV.uproject</b>, and
+To make sure that this program has access to the OpenCV libraries, the first
+thing you should do is open the folder
+<b>UE4_OpenCV\ThirdParty\OpenCV\Libraries\Win64</b>, copy the file
+<b>opencv_world340.dll</b>, and paste it into the <b>C:\Windows\System32</b>
+folder.  This will also help with any future programs you write using OpenCV.
+
+Next, navigate back to the <b>UE4_OpenCV</b> folder, right-click on <b>OpenCV.uproject</b>, and
 select the menu item <b>Generate Visual Studio project files</b>.  This should
 create a file <b>UE4_OpenCV.sln</b> and some new folders.  If you don't get the
 new .sln file, it's probably because UE4 cannot find a C++ compiler for the
@@ -47,11 +53,10 @@ Double-clicking on the .sln file should launch Visual Studio.  The first time
 you launch Visual Studio, it can take several minutes to parse up all the C++
 source code for the UE4 engine.  
 
-Once Visual Studio is done parsing the UE4 source code, do <b>Build / Build Solution</b>.  This will create
-a <b>Binaries</b> folder.  Navigate to <b>ThirdParty/OpenCV/Libraries/Win64</b>, and copy/paste the 
-file <b>opencv_world340.dll</b> into the <b>Binaries/Win64</b> folder.  Finally,
-hit the <b>F5</b> key to launch launch the UE4 editor, and press the Play
-button. In the upper-left of the display you should see a little camera view
+Finally, hit the <b>F5</b> key to launch launch the UE4 editor. Go to the <b>World Settings</b>
+tab in the upper right, and under <b>Game Mode</b> open the <b>Selected GameMode</b>
+item, and for <b>HUD Class</b> select <b>VisionHUD</b>. Now, when you press the Play
+button, the upper-left of the display should present a little camera view
 from the character's perspective, along with a report of the frame rate (FPS).
 
 # How it works
