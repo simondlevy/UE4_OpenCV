@@ -80,7 +80,7 @@ machine-vision algorithm.
 
 To add a machine-vision HUD like this to another UE4 C++ project, you should use/modify the following files:
 
-* [SideScroller.Build.cs](Source/SideScrollerCPP/SideScrollerCPP.Build.cs) As described in this 
+* [SideScrollerCPP.Build.cs](Source/SideScrollerCPP/SideScrollerCPP.Build.cs) As described in this 
 [tutorial](https://wiki.unrealengine.com/Detailed_Account_Of_Integrating_OpenCV_Into_UE4_With_VS2017),
 the contents (public and private methods) of this class can be copy/pasted into the .Build.cs class for your
 project.
