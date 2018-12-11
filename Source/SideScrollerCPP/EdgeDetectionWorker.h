@@ -11,6 +11,8 @@
 */
 
 #include "Runtime/Core/Public/HAL/Runnable.h"
+#include "GameFramework/Actor.h"
+
 
 class FPrimeNumberWorker : public FRunnable
 {

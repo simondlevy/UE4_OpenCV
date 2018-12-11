@@ -11,6 +11,7 @@
 */
 
 #include "EdgeDetectionWorker.h"
+#include "Runtime/Core/Public/GenericPlatform/GenericPlatformAffinity.h"
 #include <stdlib.h>
 
 //***********************************************************
@@ -19,10 +20,9 @@
 FPrimeNumberWorker* FPrimeNumberWorker::Runnable = NULL;
 //***********************************************************
 
-/*
-FPrimeNumberWorker::FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, AVictoryGamePlayerController* IN_PC)
-	: ThePC(IN_PC)
-	, TotalPrimesToFind(IN_TotalPrimesToFind)
+
+FPrimeNumberWorker::FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind) :
+	TotalPrimesToFind(IN_TotalPrimesToFind)
 	, StopTaskCounter(0)
 	, PrimesFoundCount(0)
 {
@@ -46,12 +46,7 @@ bool FPrimeNumberWorker::Init()
 	PrimeNumbers->Add(2);
 	PrimeNumbers->Add(3);
 
-	if (ThePC)
-	{
-		ThePC->ClientMessage("**********************************");
-		ThePC->ClientMessage("Prime Number Thread Started!");
-		ThePC->ClientMessage("**********************************");
-	}
+
 	return true;
 }
 
@@ -76,7 +71,6 @@ uint32 FPrimeNumberWorker::Run()
 
 		//	  All calcs for making stuff can be done in the threads
 		//	     But the actual making/modifying of the UObjects should be done in main game thread.
-		ThePC->ClientMessage(FString::FromInt(PrimeNumbers->Last()));
 		//***************************************
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,13 +91,13 @@ void FPrimeNumberWorker::Stop()
 	StopTaskCounter.Increment();
 }
 
-FPrimeNumberWorker* FPrimeNumberWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind, AVictoryGamePlayerController* IN_PC)
+FPrimeNumberWorker* FPrimeNumberWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind)
 {
 	//Create new instance of thread if it does not exist
 	//		and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading())
 	{
-		Runnable = new FPrimeNumberWorker(TheArray, IN_TotalPrimesToFind, IN_PC);
+		Runnable = new FPrimeNumberWorker(TheArray, IN_TotalPrimesToFind);
 	}
 	return Runnable;
 }
@@ -162,4 +156,4 @@ int32 FPrimeNumberWorker::FindNextPrimeNumber()
 	//Success!
 	return TestPrime;
 }
-*/
+
