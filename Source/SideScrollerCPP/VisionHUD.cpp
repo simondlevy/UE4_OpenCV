@@ -13,6 +13,8 @@
 // Use whatever machine-vision algorithm you like
 #include "EdgeDetection.h"
 
+#include "EdgeDetectionWorker.h"
+
 AVisionHUD::AVisionHUD()
 {
 	// Get Minimap render target from blueprint
