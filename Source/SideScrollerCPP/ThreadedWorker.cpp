@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-* EdgeDetectionWorker.cpp: Code for running OpenCV edge detection on its own thread
+* ThreadedWorker.cpp: Code for running OpenCV edge detection on its own thread
 *
 * Adapted from https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4
 *
@@ -10,30 +10,30 @@
 * MIT License
 */
 
-#include "EdgeDetectionWorker.h"
+#include "ThreadedWorker.h"
 #include "Runtime/Core/Public/GenericPlatform/GenericPlatformAffinity.h"
 #include <stdlib.h>
 
 //***********************************************************
 //Thread Worker Starts as NULL, prior to being instanced
 //		This line is essential! Compiler error without it
-FEdgeDetectionWorker* FEdgeDetectionWorker::Runnable = NULL;
+FThreadedWorker* FThreadedWorker::Runnable = NULL;
 //***********************************************************
 
 
-FEdgeDetectionWorker::FEdgeDetectionWorker(void) 
+FThreadedWorker::FThreadedWorker(void) 
 {
-	Thread = FRunnableThread::Create(this, TEXT("FEdgeDetectionWorker"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
+	Thread = FRunnableThread::Create(this, TEXT("FThreadedWorker"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
 }
 
-FEdgeDetectionWorker::~FEdgeDetectionWorker()
+FThreadedWorker::~FThreadedWorker()
 {
 	delete Thread;
 	Thread = NULL;
 }
 
 //Init
-bool FEdgeDetectionWorker::Init()
+bool FThreadedWorker::Init()
 {
 	//Init the Data 
 
@@ -41,7 +41,7 @@ bool FEdgeDetectionWorker::Init()
 }
 
 //Run
-uint32 FEdgeDetectionWorker::Run()
+uint32 FThreadedWorker::Run()
 {
 	//Initial wait before starting
 	FPlatformProcess::Sleep(0.03);
@@ -58,36 +58,36 @@ uint32 FEdgeDetectionWorker::Run()
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	}
 
-	//Run FEdgeDetectionWorker::Shutdown() from the timer in Game Thread that is watching
-	//to see when FEdgeDetectionWorker::IsThreadFinished()
+	//Run FThreadedWorker::Shutdown() from the timer in Game Thread that is watching
+	//to see when FThreadedWorker::IsThreadFinished()
 
 	return 0;
 }
 
 //stop
-void FEdgeDetectionWorker::Stop()
+void FThreadedWorker::Stop()
 {
 	StopTaskCounter.Increment();
 }
 
-FEdgeDetectionWorker* FEdgeDetectionWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind)
+FThreadedWorker* FThreadedWorker::NewWorker(void)
 {
 	//Create new instance of thread if it does not exist
 	//		and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading())
 	{
-		Runnable = new FEdgeDetectionWorker();
+		Runnable = new FThreadedWorker();
 	}
 	return Runnable;
 }
 
-void FEdgeDetectionWorker::EnsureCompletion()
+void FThreadedWorker::EnsureCompletion()
 {
 	Stop();
 	Thread->WaitForCompletion();
 }
 
-void FEdgeDetectionWorker::Shutdown()
+void FThreadedWorker::Shutdown()
 {
 	if (Runnable)
 	{

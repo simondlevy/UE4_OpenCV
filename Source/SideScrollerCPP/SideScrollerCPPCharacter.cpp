@@ -7,7 +7,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-#include "EdgeDetectionWorker.h"
+#include "ThreadedWorker.h"
 #include "OnscreenDebug.h"
 
 ASideScrollerCPPCharacter::ASideScrollerCPPCharacter()
@@ -61,7 +61,7 @@ void ASideScrollerCPPCharacter::SetupPlayerInputComponent(class UInputComponent*
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &ASideScrollerCPPCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &ASideScrollerCPPCharacter::TouchStopped);
 
-	FEdgeDetectionWorker::JoyInit(EdgeDetections, 50000);
+	FThreadedWorker::NewWorker();
 }
 
 
@@ -70,8 +70,6 @@ void ASideScrollerCPPCharacter::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	//Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
-
-	Debug::printf("%d", EdgeDetections.Num());
 }
 
 

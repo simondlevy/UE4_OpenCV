@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-* EdgeDetection.h: OpenCV demo algorithm for UnrealEngine4
+* Threaded.h: OpenCV demo algorithm for UnrealEngine4
 *
 * Copyright (C) 2017 Simon D. Levy
 
@@ -14,7 +14,7 @@ class EdgeDetection : public VisionAlgorithm {
 
 public:
 
-    EdgeDetection(AHUD * hud, int leftx, int topy);
+	EdgeDetection(AHUD * hud, int leftx, int topy);
 
     ~EdgeDetection();
 

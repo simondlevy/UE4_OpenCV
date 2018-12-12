@@ -13,7 +13,7 @@
 // Use whatever machine-vision algorithm you like
 #include "EdgeDetection.h"
 
-#include "EdgeDetectionWorker.h"
+#include "ThreadedWorker.h"
 
 AVisionHUD::AVisionHUD()
 {
