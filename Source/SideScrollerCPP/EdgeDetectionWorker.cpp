@@ -60,18 +60,8 @@ uint32 FPrimeNumberWorker::Run()
 	//		and not yet finished finding Prime Numbers
 	while (StopTaskCounter.GetValue() == 0 && !IsFinished())
 	{
-		PrimeNumbers->Add(FindNextPrimeNumber());
-		PrimesFoundCount++;
-
-		//***************************************
-		//Show Incremental Results in Main Game Thread!
-
-		//	Please note you should not create, destroy, or modify UObjects here.
-		//	  Do those sort of things after all thread are completed.
-
-		//	  All calcs for making stuff can be done in the threads
-		//	     But the actual making/modifying of the UObjects should be done in main game thread.
-		//***************************************
+		//PrimeNumbers->Add(FindNextPrimeNumber());
+		//PrimesFoundCount++;
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		//prevent thread from using too many resources
