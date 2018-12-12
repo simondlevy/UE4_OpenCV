@@ -13,26 +13,22 @@
 #include "Runtime/Core/Public/HAL/Runnable.h"
 #include "GameFramework/Actor.h"
 
-
-class FPrimeNumberWorker : public FRunnable
+class FEdgeDetectionWorker : public FRunnable
 {
 	/** Singleton instance, can access the thread any time via static accessor, if it is active! */
-	static  FPrimeNumberWorker* Runnable;
+	static  FEdgeDetectionWorker* Runnable;
 
 	/** Thread to run the worker FRunnable on */
 	FRunnableThread* Thread;
 
 	/** The Data Ptr */
-	TArray<uint32>* PrimeNumbers;
+	TArray<uint32>* EdgeDetections;
 
 	/** The PC */
 	//AVictoryGamePlayerController* ThePC;
 
 	/** Stop this thread? Uses Thread Safe Counter */
 	FThreadSafeCounter StopTaskCounter;
-
-	//The actual finding of prime numbers
-	int32 FindNextPrimeNumber();
 
 private:
 	int32				PrimesFoundCount;
@@ -49,8 +45,9 @@ public:
 	//~~~ Thread Core Functions ~~~
 
 	//Constructor / Destructor
-	FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_PrimesToFindPerTick);
-	virtual ~FPrimeNumberWorker();
+	FEdgeDetectionWorker(TArray<uint32>& TheArray, const int32 IN_PrimesToFindPerTick);
+
+	virtual ~FEdgeDetectionWorker();
 
 	// Begin FRunnable interface.
 	virtual bool Init();
@@ -72,7 +69,7 @@ public:
 		This code ensures only 1 Prime Number thread will be able to run at a time.
 		This function returns a handle to the newly started instance.
 	*/
-	static FPrimeNumberWorker* JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind);
+	static FEdgeDetectionWorker* JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind);
 
 	/** Shuts down the thread. Static so it can easily be called from outside the thread context */
 	static void Shutdown();

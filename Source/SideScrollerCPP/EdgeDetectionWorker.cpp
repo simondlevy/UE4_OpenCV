@@ -17,41 +17,37 @@
 //***********************************************************
 //Thread Worker Starts as NULL, prior to being instanced
 //		This line is essential! Compiler error without it
-FPrimeNumberWorker* FPrimeNumberWorker::Runnable = NULL;
+FEdgeDetectionWorker* FEdgeDetectionWorker::Runnable = NULL;
 //***********************************************************
 
 
-FPrimeNumberWorker::FPrimeNumberWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind) :
+FEdgeDetectionWorker::FEdgeDetectionWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind) :
 	TotalPrimesToFind(IN_TotalPrimesToFind)
 	, StopTaskCounter(0)
 	, PrimesFoundCount(0)
 {
 	//Link to where data should be stored
-	PrimeNumbers = &TheArray;
+	EdgeDetections = &TheArray;
 
-	Thread = FRunnableThread::Create(this, TEXT("FPrimeNumberWorker"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
+	Thread = FRunnableThread::Create(this, TEXT("FEdgeDetectionWorker"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
 }
 
-FPrimeNumberWorker::~FPrimeNumberWorker()
+FEdgeDetectionWorker::~FEdgeDetectionWorker()
 {
 	delete Thread;
 	Thread = NULL;
 }
 
 //Init
-bool FPrimeNumberWorker::Init()
+bool FEdgeDetectionWorker::Init()
 {
 	//Init the Data 
-	PrimeNumbers->Empty();
-	PrimeNumbers->Add(2);
-	PrimeNumbers->Add(3);
-
 
 	return true;
 }
 
 //Run
-uint32 FPrimeNumberWorker::Run()
+uint32 FEdgeDetectionWorker::Run()
 {
 	//Initial wait before starting
 	FPlatformProcess::Sleep(0.03);
@@ -60,7 +56,7 @@ uint32 FPrimeNumberWorker::Run()
 	//		and not yet finished finding Prime Numbers
 	while (StopTaskCounter.GetValue() == 0 && !IsFinished())
 	{
-		//PrimeNumbers->Add(FindNextPrimeNumber());
+		//EdgeDetections->Add(FindNextEdgeDetection());
 		//PrimesFoundCount++;
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -69,36 +65,36 @@ uint32 FPrimeNumberWorker::Run()
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	}
 
-	//Run FPrimeNumberWorker::Shutdown() from the timer in Game Thread that is watching
-	//to see when FPrimeNumberWorker::IsThreadFinished()
+	//Run FEdgeDetectionWorker::Shutdown() from the timer in Game Thread that is watching
+	//to see when FEdgeDetectionWorker::IsThreadFinished()
 
 	return 0;
 }
 
 //stop
-void FPrimeNumberWorker::Stop()
+void FEdgeDetectionWorker::Stop()
 {
 	StopTaskCounter.Increment();
 }
 
-FPrimeNumberWorker* FPrimeNumberWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind)
+FEdgeDetectionWorker* FEdgeDetectionWorker::JoyInit(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind)
 {
 	//Create new instance of thread if it does not exist
 	//		and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading())
 	{
-		Runnable = new FPrimeNumberWorker(TheArray, IN_TotalPrimesToFind);
+		Runnable = new FEdgeDetectionWorker(TheArray, IN_TotalPrimesToFind);
 	}
 	return Runnable;
 }
 
-void FPrimeNumberWorker::EnsureCompletion()
+void FEdgeDetectionWorker::EnsureCompletion()
 {
 	Stop();
 	Thread->WaitForCompletion();
 }
 
-void FPrimeNumberWorker::Shutdown()
+void FEdgeDetectionWorker::Shutdown()
 {
 	if (Runnable)
 	{
@@ -108,42 +104,10 @@ void FPrimeNumberWorker::Shutdown()
 	}
 }
 
-bool FPrimeNumberWorker::IsThreadFinished()
+bool FEdgeDetectionWorker::IsThreadFinished()
 {
 	if (Runnable) return Runnable->IsFinished();
 	return true;
 }
-int32 FPrimeNumberWorker::FindNextPrimeNumber()
-{
-	//Last known prime number  + 1
-	int32 TestPrime = PrimeNumbers->Last();
 
-	bool NumIsPrime = false;
-	while (!NumIsPrime)
-	{
-		NumIsPrime = true;
-
-		//Try Next Number
-		TestPrime++;
-
-		//Modulus from 2 to current number - 1 
-		for (int32 b = 2; b < TestPrime; b++)
-		{
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-			//prevent thread from using too many resources
-			//FPlatformProcess::Sleep(0.01);
-			//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-			if (TestPrime % b == 0)
-			{
-				NumIsPrime = false;
-				break;
-				//~~~
-			}
-		}
-	}
-
-	//Success!
-	return TestPrime;
-}
 

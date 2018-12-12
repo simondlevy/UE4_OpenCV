@@ -21,7 +21,7 @@ class ASideScrollerCPPCharacter : public ACharacter
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
-	TArray<uint32> PrimeNumbers;
+	TArray<uint32> EdgeDetections;
 
 
 protected:

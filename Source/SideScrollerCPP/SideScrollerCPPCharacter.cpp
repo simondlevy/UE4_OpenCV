@@ -61,7 +61,7 @@ void ASideScrollerCPPCharacter::SetupPlayerInputComponent(class UInputComponent*
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &ASideScrollerCPPCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &ASideScrollerCPPCharacter::TouchStopped);
 
-	FPrimeNumberWorker::JoyInit(PrimeNumbers, 50000);
+	FEdgeDetectionWorker::JoyInit(EdgeDetections, 50000);
 }
 
 
@@ -71,7 +71,7 @@ void ASideScrollerCPPCharacter::Tick(float DeltaSeconds)
 
 	//Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
 
-	Debug::printf("%d", PrimeNumbers.Num());
+	Debug::printf("%d", EdgeDetections.Num());
 }
 
 
