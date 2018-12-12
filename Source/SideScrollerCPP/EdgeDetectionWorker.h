@@ -21,31 +21,16 @@ class FEdgeDetectionWorker : public FRunnable
 	/** Thread to run the worker FRunnable on */
 	FRunnableThread* Thread;
 
-	/** The Data Ptr */
-	TArray<uint32>* EdgeDetections;
-
-	/** The PC */
-	//AVictoryGamePlayerController* ThePC;
-
 	/** Stop this thread? Uses Thread Safe Counter */
 	FThreadSafeCounter StopTaskCounter;
 
-private:
-	int32				PrimesFoundCount;
 public:
 
-	int32				TotalPrimesToFind;
-
-	//Done?
-	bool IsFinished() const
-	{
-		return PrimesFoundCount >= TotalPrimesToFind;
-	}
 
 	//~~~ Thread Core Functions ~~~
 
 	//Constructor / Destructor
-	FEdgeDetectionWorker(TArray<uint32>& TheArray, const int32 IN_PrimesToFindPerTick);
+	FEdgeDetectionWorker(void);
 
 	virtual ~FEdgeDetectionWorker();
 
@@ -73,7 +58,4 @@ public:
 
 	/** Shuts down the thread. Static so it can easily be called from outside the thread context */
 	static void Shutdown();
-
-        static bool IsThreadFinished();
-
 };

@@ -21,14 +21,8 @@ FEdgeDetectionWorker* FEdgeDetectionWorker::Runnable = NULL;
 //***********************************************************
 
 
-FEdgeDetectionWorker::FEdgeDetectionWorker(TArray<uint32>& TheArray, const int32 IN_TotalPrimesToFind) :
-	TotalPrimesToFind(IN_TotalPrimesToFind)
-	, StopTaskCounter(0)
-	, PrimesFoundCount(0)
+FEdgeDetectionWorker::FEdgeDetectionWorker(void) 
 {
-	//Link to where data should be stored
-	EdgeDetections = &TheArray;
-
 	Thread = FRunnableThread::Create(this, TEXT("FEdgeDetectionWorker"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
 }
 
@@ -54,10 +48,9 @@ uint32 FEdgeDetectionWorker::Run()
 
 	//While not told to stop this thread 
 	//		and not yet finished finding Prime Numbers
-	while (StopTaskCounter.GetValue() == 0 && !IsFinished())
+	while (StopTaskCounter.GetValue() == 0)
 	{
-		//EdgeDetections->Add(FindNextEdgeDetection());
-		//PrimesFoundCount++;
+		// Do main work here
 
 		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		//prevent thread from using too many resources
@@ -83,7 +76,7 @@ FEdgeDetectionWorker* FEdgeDetectionWorker::JoyInit(TArray<uint32>& TheArray, co
 	//		and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading())
 	{
-		Runnable = new FEdgeDetectionWorker(TheArray, IN_TotalPrimesToFind);
+		Runnable = new FEdgeDetectionWorker();
 	}
 	return Runnable;
 }
@@ -104,10 +97,5 @@ void FEdgeDetectionWorker::Shutdown()
 	}
 }
 
-bool FEdgeDetectionWorker::IsThreadFinished()
-{
-	if (Runnable) return Runnable->IsFinished();
-	return true;
-}
 
 
