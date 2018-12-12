@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-* ThreadedWorker.cpp: Code for running OpenCV edge detection on its own thread
+* ThreadedWorker.cpp: Code for running compute-intensive computations on their own thread
 *
 * Adapted from https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4
 *

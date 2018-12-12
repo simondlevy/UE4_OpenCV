@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-* Threaded.cpp: OpenCV demo algorithm for UnrealEngine4
+* EdgeDetection.cpp: OpenCV demo algorithm for UnrealEngine4
 *
 * Copyright (C) 2017 Simon D. Levy
 *
