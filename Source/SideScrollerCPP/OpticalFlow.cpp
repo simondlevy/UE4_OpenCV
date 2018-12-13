@@ -1,14 +1,14 @@
 #pragma once
 
 /*
-* EdgeDetection.cpp: OpenCV demo algorithm for UnrealEngine4
+* OpticalFlow.cpp: OpenCV demo algorithm for UnrealEngine4
 *
 * Copyright (C) 2017 Simon D. Levy
 *
 * MIT License
 */
 
-#include "EdgeDetection.h"
+#include "OpticalFlow.h"
 #include "OnScreenDebug.h"
 
 #include "Engine.h"
@@ -22,16 +22,16 @@
 #include <cstdint>
 
 
-EdgeDetection::EdgeDetection(int width, int height) : VisionAlgorithm(width, height)
+OpticalFlow::OpticalFlow(int width, int height) : VisionAlgorithm(width, height)
 {
 	_vertexCount = 0;
 }
 
-EdgeDetection::~EdgeDetection()
+OpticalFlow::~OpticalFlow()
 {
 }
 
-void EdgeDetection::perform(void)
+void OpticalFlow::perform(void)
 {
 	// Convert color image to grayscale
 	cv::Mat gray;
@@ -57,7 +57,7 @@ void EdgeDetection::perform(void)
 	}
 }
 
-void EdgeDetection::draw(AHUD* hud, int leftx, int topy) 
+void OpticalFlow::draw(AHUD* hud, int leftx, int topy) 
 { 
 	for (int i = 0; i < _vertexCount; ++i) {
 		cv::Point vertex = _vertices[i];
@@ -65,9 +65,7 @@ void EdgeDetection::draw(AHUD* hud, int leftx, int topy)
 	}
 }
 
-/*
 VisionAlgorithm * getInstance(int width, int height)
 {
-	return new EdgeDetection(width, height);
+	return new OpticalFlow(width, height);
 }
-*/

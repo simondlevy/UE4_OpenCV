@@ -10,7 +10,6 @@
 
 #include "VisionHUD.h"
 #include "VisionAlgorithm.h"
-#include "EdgeDetection.h"
 #include "OnScreenDebug.h"
 
 AVisionHUD::AVisionHUD()
@@ -50,7 +49,7 @@ void AVisionHUD::DrawHUD()
 
 	if (!_algorithm) {
 
-		_algorithm = EdgeDetection::NewWorker(_cols, _rows);
+		_algorithm = VisionAlgorithm::NewWorker(_cols, _rows);
 	}
 
 	// Draw the image to the HUD
