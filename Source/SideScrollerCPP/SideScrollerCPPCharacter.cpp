@@ -60,8 +60,6 @@ void ASideScrollerCPPCharacter::SetupPlayerInputComponent(class UInputComponent*
 
 	PlayerInputComponent->BindTouch(IE_Pressed, this, &ASideScrollerCPPCharacter::TouchStarted);
 	PlayerInputComponent->BindTouch(IE_Released, this, &ASideScrollerCPPCharacter::TouchStopped);
-
-	FThreadedWorker::NewWorker();
 }
 
 
@@ -69,7 +67,7 @@ void ASideScrollerCPPCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	//Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
+	Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
 }
 
 

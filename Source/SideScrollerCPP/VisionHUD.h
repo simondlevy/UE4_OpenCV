@@ -15,7 +15,7 @@
 #include "GameFramework/Character.h"
 #include "Engine/TextureRenderTarget2D.h"
 
-#include "VisionAlgorithm.h"
+#include "EdgeDetection.h"
 
 #include <opencv2/core.hpp>
 
@@ -62,5 +62,5 @@ protected:
 	uint8_t* _bgrbytes;
 
 	// implementation of your vision algorithm
-	VisionAlgorithm* _algorithm;
+	FEdgeDetection * _algorithm;
 };

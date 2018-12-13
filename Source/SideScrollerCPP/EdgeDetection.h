@@ -8,19 +8,47 @@
 * MIT License
 */
 
-#include "VisionAlgorithm.h"
+#include "Runtime/Core/Public/HAL/Runnable.h"
+#include "GameFramework/Actor.h"
 
-class EdgeDetection : public VisionAlgorithm {
+#include <opencv2/core.hpp>
+
+class FEdgeDetection  : public FRunnable {
 
 public:
 
-	EdgeDetection(AHUD * hud, int leftx, int topy);
+	FEdgeDetection(int width, int height, AHUD * hud, int leftx, int topy);
 
-    ~EdgeDetection();
+    ~FEdgeDetection();
 
-	virtual void perform(cv::Mat & bgrimg) override;
+	void update(cv::Mat & bgrimg);
+
+	// FRunnable interface.
+	virtual bool Init();
+	virtual uint32 Run();
+	virtual void Stop();
+
+	/** Makes sure this thread has stopped properly */
+	void EnsureCompletion();
+
+	/*
+	Start the thread and the worker from static (easy access)!
+	This code ensures only one thread will be able to run at a time.
+	This function returns a handle to the newly started instance.
+	*/
+	static FEdgeDetection* NewWorker(int width, int height, AHUD * hud, int leftx, int topy);
+
+	// Shuts down the thread. Static so it can easily be called from outside the thread context
+	static void Shutdown();
 
 private:
+
+	int _leftx;
+	int _topy;
+
+	AHUD * _hud;
+
+	cv::Mat * _bgrimg;
 
 	// Arbitrary edge-detection params
 	const int LOW_THRESHOLD = 50;
@@ -28,4 +56,24 @@ private:
 	const int KERNEL_SIZE   = 3;
 
 	FColor EDGE_COLOR = FColor::Green;
+
+	// Runs on its own thread
+	void perform(void);
+
+	// Singleton instance, can access the thread any time via static accessor, if it is active
+	static  FEdgeDetection* Runnable;
+
+	// Thread to run the worker FRunnable on
+	FRunnableThread* Thread;
+
+	// Stop this thread? Uses Thread Safe Counter
+	FThreadSafeCounter StopTaskCounter;
+
+	// Stores vertices computed on thread
+	static const int MAX_VERTICES = 1000;
+	cv::Point _vertices[MAX_VERTICES];
+	int _vertexCount;
+
+	// Always gotta write this!
+	static int min(int a, int b) { return a < b ? a : b; }
 };

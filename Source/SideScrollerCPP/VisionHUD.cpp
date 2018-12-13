@@ -13,7 +13,7 @@
 // Use whatever machine-vision algorithm you like
 #include "EdgeDetection.h"
 
-#include "ThreadedWorker.h"
+#include "OnScreenDebug.h"
 
 AVisionHUD::AVisionHUD()
 {
@@ -36,19 +36,23 @@ AVisionHUD::AVisionHUD()
 	_cols = MiniMapTextureRenderTarget->SizeX;
 	_bgrbytes = new uint8_t[_rows*_cols*3];
 
-	// Specify a machine-vision algorithm
-	_algorithm = new EdgeDetection(this, LEFTX, TOPY);
+	// Algorithm will be launched by DrawHUD()
+	_algorithm = NULL;
 }
 
 AVisionHUD::~AVisionHUD()
 {
 	delete _bgrbytes;
-	delete _algorithm;
+//	delete _algorithm;
 }
 
 void AVisionHUD::DrawHUD()
 {
 	Super::DrawHUD();	
+
+	if (!_algorithm) {
+		_algorithm = FEdgeDetection::NewWorker(_cols, _rows, this, LEFTX, TOPY);
+	}
 
 	// Draw the image to the HUD
 	DrawTextureSimple(MiniMapTextureRenderTarget, LEFTX, TOPY, 1.0f, true);
@@ -74,9 +78,9 @@ void AVisionHUD::DrawHUD()
     // Convert BGR bytes to OpenCV Mat
     cv::Mat bgrimg(_rows, _cols, CV_8UC3, _bgrbytes);
 
-	// Run your vision algorithm on the OpenCV Mat
-    _algorithm->perform(bgrimg);
-    
+	// Update your vision algorithm with the OpenCV Mat
+    _algorithm->update(bgrimg);
+	    
 	// Draw a border around the image
 
 	float rightx = LEFTX + _cols;

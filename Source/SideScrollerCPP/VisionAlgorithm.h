@@ -10,6 +10,9 @@
 
 #include "Engine.h"
 
+#include "Runtime/Core/Public/HAL/Runnable.h"
+#include "GameFramework/Actor.h"
+
 #include <opencv2/core.hpp>
 
 #include <cstdint>
@@ -17,14 +20,15 @@
 /**
 *  Abstract machine-vision class.
 */
-class VisionAlgorithm {
+class VisionAlgorithm  {
 
 public:
 
 	/**
 	 * Constructor gets HUD and its coordinates for possible display.
 	*/
-    VisionAlgorithm(AHUD * hud, int leftx, int topy) : _hud(hud), _leftx(leftx), _topy(topy) { }
+    VisionAlgorithm(int width, int height,
+		AHUD * hud, int leftx, int topy) : _hud(hud), _leftx(leftx), _topy(topy) { }
 
 	/**
 	 * Mandatory virtual destructor to avoid compiler errors.

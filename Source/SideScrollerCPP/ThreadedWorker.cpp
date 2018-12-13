@@ -12,7 +12,6 @@
 
 #include "ThreadedWorker.h"
 #include "Runtime/Core/Public/GenericPlatform/GenericPlatformAffinity.h"
-#include <stdlib.h>
 
 //***********************************************************
 //Thread Worker Starts as NULL, prior to being instanced
