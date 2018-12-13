@@ -3,6 +3,8 @@
 /*
  * VisionAlgorithm.h: Abstract threaded machine-vision class for UnrealEngine4
  *
+ * Adapted from https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4
+ *
  * Copyright (C) 2017 Simon D. Levy
  *
  * MIT License

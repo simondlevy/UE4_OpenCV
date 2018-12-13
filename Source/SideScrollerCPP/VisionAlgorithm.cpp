@@ -3,6 +3,8 @@
 /*
 * VisionAlgorithm.cpp: Abstract threaded machine-vision class for UnrealEngine4
 *
+* Adapted from https://wiki.unrealengine.com/Multi-Threading:_How_to_Create_Threads_in_UE4
+*
 * Copyright (C) 2017 Simon D. Levy
 *
 * MIT License
@@ -81,8 +83,7 @@ void VisionAlgorithm::Stop()
 
 VisionAlgorithm* VisionAlgorithm::NewWorker(int width, int height)
 {
-	//Create new instance of thread if it does not exist
-	//		and the platform supports multi threading!
+	//Create new instance of thread if it does not exist and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading()) {
 
 		Runnable = getInstance(width, height);
