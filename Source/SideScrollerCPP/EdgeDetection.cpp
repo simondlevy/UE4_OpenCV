@@ -25,8 +25,7 @@
 //		This line is essential! Compiler error without it
 FEdgeDetection* FEdgeDetection::Runnable = NULL;
 
-FEdgeDetection::FEdgeDetection(int width, int height,
-	AHUD* hud, int leftx, int topy) : _hud(hud), _leftx(leftx), _topy(topy)
+FEdgeDetection::FEdgeDetection(int width, int height)
 {
 	_bgrimg = new cv::Mat(width, height, CV_8UC3);
 
@@ -69,10 +68,13 @@ void FEdgeDetection::perform(void)
 void FEdgeDetection::update(cv::Mat & bgrimg)
 {
 	bgrimg.copyTo(*_bgrimg);
+}
 
+void FEdgeDetection::draw(AHUD* hud, int leftx, int topy) 
+{ 
 	for (int i = 0; i < _vertexCount; ++i) {
 		cv::Point vertex = _vertices[i];
-		_hud->DrawRect(EDGE_COLOR, _leftx+vertex.x, _topy+vertex.y, 1, 1);
+		hud->DrawRect(EDGE_COLOR, leftx + vertex.x, topy + vertex.y, 1, 1);
 	}
 }
 
@@ -111,13 +113,13 @@ void FEdgeDetection::Stop()
 	StopTaskCounter.Increment();
 }
 
-FEdgeDetection* FEdgeDetection::NewWorker(int width, int height, AHUD * hud, int leftx, int topy)
+FEdgeDetection* FEdgeDetection::NewWorker(int width, int height)
 {
 	//Create new instance of thread if it does not exist
 	//		and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading()) {
 
-		Runnable = new FEdgeDetection(width, height, hud, leftx, topy);
+		Runnable = new FEdgeDetection(width, height);
 	}
 	return Runnable;
 }

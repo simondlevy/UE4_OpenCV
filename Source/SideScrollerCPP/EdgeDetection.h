@@ -17,11 +17,15 @@ class FEdgeDetection  : public FRunnable {
 
 public:
 
-	FEdgeDetection(int width, int height, AHUD * hud, int leftx, int topy);
+	FEdgeDetection(int width, int height);
 
     ~FEdgeDetection();
 
 	void update(cv::Mat & bgrimg);
+
+
+	// Supports optional drawing to HUD
+	/*virtual*/ void draw(AHUD* hud, int leftx, int topy); /* { (void)hud; (void)leftx; (void)topy; } */
 
 	// FRunnable interface.
 	virtual bool Init();
@@ -36,17 +40,12 @@ public:
 	This code ensures only one thread will be able to run at a time.
 	This function returns a handle to the newly started instance.
 	*/
-	static FEdgeDetection* NewWorker(int width, int height, AHUD * hud, int leftx, int topy);
+	static FEdgeDetection* NewWorker(int width, int height);
 
 	// Shuts down the thread. Static so it can easily be called from outside the thread context
 	static void Shutdown();
 
 private:
-
-	int _leftx;
-	int _topy;
-
-	AHUD * _hud;
 
 	cv::Mat * _bgrimg;
 

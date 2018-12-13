@@ -51,7 +51,8 @@ void AVisionHUD::DrawHUD()
 	Super::DrawHUD();	
 
 	if (!_algorithm) {
-		_algorithm = FEdgeDetection::NewWorker(_cols, _rows, this, LEFTX, TOPY);
+
+		_algorithm = FEdgeDetection::NewWorker(_cols, _rows);
 	}
 
 	// Draw the image to the HUD
@@ -80,6 +81,9 @@ void AVisionHUD::DrawHUD()
 
 	// Update your vision algorithm with the OpenCV Mat
     _algorithm->update(bgrimg);
+
+	// Allow the algorithm to draw to the HUD
+	_algorithm->draw(this, LEFTX, TOPY);
 	    
 	// Draw a border around the image
 

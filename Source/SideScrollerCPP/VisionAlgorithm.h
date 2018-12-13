@@ -1,7 +1,7 @@
 #pragma once
 
 /*
-* VisionAlgorithm.h: Abstract machine-vision class for UnrealEngine4
+* VisionAlgorithm.h: Abstract threaded machine-vision class for UnrealEngine4
 *
 * Copyright (C) 2017 Simon D. Levy
 *
