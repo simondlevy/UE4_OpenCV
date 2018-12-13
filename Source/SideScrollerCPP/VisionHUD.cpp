@@ -9,10 +9,8 @@
 */
 
 #include "VisionHUD.h"
-
-// Use whatever machine-vision algorithm you like
+#include "VisionAlgorithm.h"
 #include "EdgeDetection.h"
-
 #include "OnScreenDebug.h"
 
 AVisionHUD::AVisionHUD()
@@ -43,7 +41,7 @@ AVisionHUD::AVisionHUD()
 AVisionHUD::~AVisionHUD()
 {
 	delete _bgrbytes;
-//	delete _algorithm;
+//	delete _algorithm; // XXX
 }
 
 void AVisionHUD::DrawHUD()

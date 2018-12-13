@@ -21,22 +21,14 @@
 
 #include <cstdint>
 
-//Thread Worker Starts as NULL, prior to being instanced
-//		This line is essential! Compiler error without it
-EdgeDetection* EdgeDetection::Runnable = NULL;
 
-EdgeDetection::EdgeDetection(int width, int height)
+EdgeDetection::EdgeDetection(int width, int height) : VisionAlgorithm(width, height)
 {
-	_bgrimg = new cv::Mat(width, height, CV_8UC3);
-
 	_vertexCount = 0;
-
-	Thread = FRunnableThread::Create(this, TEXT("EdgeDetection"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
 }
 
 EdgeDetection::~EdgeDetection()
 {
-	delete _bgrimg;
 }
 
 void EdgeDetection::perform(void)
@@ -65,11 +57,6 @@ void EdgeDetection::perform(void)
 	}
 }
 
-void EdgeDetection::update(cv::Mat & bgrimg)
-{
-	bgrimg.copyTo(*_bgrimg);
-}
-
 void EdgeDetection::draw(AHUD* hud, int leftx, int topy) 
 { 
 	for (int i = 0; i < _vertexCount; ++i) {
@@ -78,65 +65,7 @@ void EdgeDetection::draw(AHUD* hud, int leftx, int topy)
 	}
 }
 
-//Init
-bool EdgeDetection::Init()
+VisionAlgorithm * getInstance(int width, int height)
 {
-	//Init the Data 
-
-	return true;
+	return new EdgeDetection(width, height);
 }
-
-uint32 EdgeDetection::Run()
-{
-	// Initial wait before starting
-	FPlatformProcess::Sleep(0.03);
-
-	// While not told to stop this thread 
-
-	while (StopTaskCounter.GetValue() == 0)
-	{
-		// Do main work here
-		perform();
-
-		// Yield to other threads
-		FPlatformProcess::Sleep(0.01);
-	}
-
-	// Run EdgeDetection::Shutdown() from the timer in Game Thread that is watching
-	// to see when EdgeDetection::IsThreadFinished()
-
-	return 0;
-}
-
-void EdgeDetection::Stop()
-{
-	StopTaskCounter.Increment();
-}
-
-EdgeDetection* EdgeDetection::NewWorker(int width, int height)
-{
-	//Create new instance of thread if it does not exist
-	//		and the platform supports multi threading!
-	if (!Runnable && FPlatformProcess::SupportsMultithreading()) {
-
-		Runnable = new EdgeDetection(width, height);
-	}
-	return Runnable;
-}
-
-void EdgeDetection::EnsureCompletion()
-{
-	Stop();
-	Thread->WaitForCompletion();
-}
-
-void EdgeDetection::Shutdown()
-{
-	if (Runnable) {
-
-		Runnable->EnsureCompletion();
-		delete Runnable;
-		Runnable = NULL;
-	}
-}
-
