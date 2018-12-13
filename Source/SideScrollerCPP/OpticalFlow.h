@@ -25,6 +25,9 @@ public:
 
 private:
 
+	cv::Mat * _prevgray;
+	bool _gotprev;
+
 	// Arbitrary edge-detection params
 	const int LOW_THRESHOLD = 50;
 	const int RATIO         = 3;

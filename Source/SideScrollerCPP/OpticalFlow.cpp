@@ -25,10 +25,13 @@
 OpticalFlow::OpticalFlow(int width, int height) : VisionAlgorithm(width, height)
 {
 	_vertexCount = 0;
+	_prevgray = new cv::Mat(128, 128, CV_8UC3);
+	_gotprev = false;
 }
 
 OpticalFlow::~OpticalFlow()
 {
+	delete _prevgray;
 }
 
 void OpticalFlow::perform(void)
