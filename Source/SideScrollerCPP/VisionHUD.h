@@ -62,5 +62,5 @@ protected:
 	uint8_t* _bgrbytes;
 
 	// implementation of your vision algorithm
-	FEdgeDetection * _algorithm;
+	EdgeDetection * _algorithm;
 };

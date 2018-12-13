@@ -13,13 +13,13 @@
 
 #include <opencv2/core.hpp>
 
-class FEdgeDetection  : public FRunnable {
+class EdgeDetection  : public FRunnable {
 
 public:
 
-	FEdgeDetection(int width, int height);
+	EdgeDetection(int width, int height);
 
-    ~FEdgeDetection();
+    ~EdgeDetection();
 
 	void update(cv::Mat & bgrimg);
 
@@ -40,7 +40,7 @@ public:
 	This code ensures only one thread will be able to run at a time.
 	This function returns a handle to the newly started instance.
 	*/
-	static FEdgeDetection* NewWorker(int width, int height);
+	static EdgeDetection* NewWorker(int width, int height);
 
 	// Shuts down the thread. Static so it can easily be called from outside the thread context
 	static void Shutdown();
@@ -60,7 +60,7 @@ private:
 	void perform(void);
 
 	// Singleton instance, can access the thread any time via static accessor, if it is active
-	static  FEdgeDetection* Runnable;
+	static  EdgeDetection* Runnable;
 
 	// Thread to run the worker FRunnable on
 	FRunnableThread* Thread;

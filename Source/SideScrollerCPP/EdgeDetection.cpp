@@ -23,23 +23,23 @@
 
 //Thread Worker Starts as NULL, prior to being instanced
 //		This line is essential! Compiler error without it
-FEdgeDetection* FEdgeDetection::Runnable = NULL;
+EdgeDetection* EdgeDetection::Runnable = NULL;
 
-FEdgeDetection::FEdgeDetection(int width, int height)
+EdgeDetection::EdgeDetection(int width, int height)
 {
 	_bgrimg = new cv::Mat(width, height, CV_8UC3);
 
 	_vertexCount = 0;
 
-	Thread = FRunnableThread::Create(this, TEXT("FEdgeDetection"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
+	Thread = FRunnableThread::Create(this, TEXT("EdgeDetection"), 0, TPri_BelowNormal); //windows default = 8mb for thread, could specify more
 }
 
-FEdgeDetection::~FEdgeDetection()
+EdgeDetection::~EdgeDetection()
 {
 	delete _bgrimg;
 }
 
-void FEdgeDetection::perform(void)
+void EdgeDetection::perform(void)
 {
 	// Convert color image to grayscale
 	cv::Mat gray;
@@ -65,12 +65,12 @@ void FEdgeDetection::perform(void)
 	}
 }
 
-void FEdgeDetection::update(cv::Mat & bgrimg)
+void EdgeDetection::update(cv::Mat & bgrimg)
 {
 	bgrimg.copyTo(*_bgrimg);
 }
 
-void FEdgeDetection::draw(AHUD* hud, int leftx, int topy) 
+void EdgeDetection::draw(AHUD* hud, int leftx, int topy) 
 { 
 	for (int i = 0; i < _vertexCount; ++i) {
 		cv::Point vertex = _vertices[i];
@@ -79,14 +79,14 @@ void FEdgeDetection::draw(AHUD* hud, int leftx, int topy)
 }
 
 //Init
-bool FEdgeDetection::Init()
+bool EdgeDetection::Init()
 {
 	//Init the Data 
 
 	return true;
 }
 
-uint32 FEdgeDetection::Run()
+uint32 EdgeDetection::Run()
 {
 	// Initial wait before starting
 	FPlatformProcess::Sleep(0.03);
@@ -102,35 +102,35 @@ uint32 FEdgeDetection::Run()
 		FPlatformProcess::Sleep(0.01);
 	}
 
-	// Run FEdgeDetection::Shutdown() from the timer in Game Thread that is watching
-	// to see when FEdgeDetection::IsThreadFinished()
+	// Run EdgeDetection::Shutdown() from the timer in Game Thread that is watching
+	// to see when EdgeDetection::IsThreadFinished()
 
 	return 0;
 }
 
-void FEdgeDetection::Stop()
+void EdgeDetection::Stop()
 {
 	StopTaskCounter.Increment();
 }
 
-FEdgeDetection* FEdgeDetection::NewWorker(int width, int height)
+EdgeDetection* EdgeDetection::NewWorker(int width, int height)
 {
 	//Create new instance of thread if it does not exist
 	//		and the platform supports multi threading!
 	if (!Runnable && FPlatformProcess::SupportsMultithreading()) {
 
-		Runnable = new FEdgeDetection(width, height);
+		Runnable = new EdgeDetection(width, height);
 	}
 	return Runnable;
 }
 
-void FEdgeDetection::EnsureCompletion()
+void EdgeDetection::EnsureCompletion()
 {
 	Stop();
 	Thread->WaitForCompletion();
 }
 
-void FEdgeDetection::Shutdown()
+void EdgeDetection::Shutdown()
 {
 	if (Runnable) {
 

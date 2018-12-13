@@ -52,7 +52,7 @@ void AVisionHUD::DrawHUD()
 
 	if (!_algorithm) {
 
-		_algorithm = FEdgeDetection::NewWorker(_cols, _rows);
+		_algorithm = EdgeDetection::NewWorker(_cols, _rows);
 	}
 
 	// Draw the image to the HUD
