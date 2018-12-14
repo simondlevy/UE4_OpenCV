@@ -66,7 +66,7 @@ void ASideScrollerCPPCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
+	//Debug::printf("%3d FPS", (int)(1/DeltaSeconds));
 }
 
 

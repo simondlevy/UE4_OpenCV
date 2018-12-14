@@ -25,7 +25,7 @@
 OpticalFlow::OpticalFlow(int width, int height) : VisionAlgorithm(width, height)
 {
 	_vertexCount = 0;
-	_prevgray = new cv::Mat(128, 128, CV_8UC3);
+	_prevgray = new cv::Mat(height, width, CV_8UC3);
 	_gotprev = false;
 }
 
@@ -40,32 +40,21 @@ void OpticalFlow::perform(void)
 	cv::Mat gray;
 	cv::cvtColor(*_bgrimg, gray, cv::COLOR_BGR2GRAY);
 
-	// Reduce noise with a kernel 3x3
-	cv::Mat detected_edges;
-	cv::blur(gray, detected_edges, cv::Size(3, 3));
+	if (_gotprev) {
 
-	// Run Canny edge detection algorithm on blurred gray image
-	cv::Canny(detected_edges, detected_edges, LOW_THRESHOLD, LOW_THRESHOLD*RATIO, KERNEL_SIZE);
-
-	// Find edges
-	cv::Mat nonZeroCoordinates;
-	cv::findNonZero(detected_edges, nonZeroCoordinates);
-
-	// Store vertices (edge coordinates)
-	_vertexCount = min((int)nonZeroCoordinates.total(), MAX_VERTICES);
-	for (int i = 0; i < _vertexCount; i++) {
-		cv::Point vertex = nonZeroCoordinates.at<cv::Point>(i);
-		_vertices[i].x = vertex.x;
-		_vertices[i].y = vertex.y;
+		for (int j = 0; j < gray.rows; ++j) {
+			for (int k = 0; k < gray.cols; ++k) {
+			}
+		}
 	}
+
+	gray.copyTo(*_prevgray);
+	_gotprev = true;
 }
 
 void OpticalFlow::draw(AHUD* hud, int leftx, int topy) 
 { 
-	for (int i = 0; i < _vertexCount; ++i) {
-		cv::Point vertex = _vertices[i];
-		hud->DrawRect(EDGE_COLOR, leftx + vertex.x, topy + vertex.y, 1, 1);
-	}
+
 }
 
 VisionAlgorithm * getInstance(int width, int height)
