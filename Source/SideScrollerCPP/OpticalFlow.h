@@ -25,25 +25,9 @@ public:
 
 private:
 
-	cv::Mat * _prevgray;
-	bool _gotprev;
-
-	// Arbitrary edge-detection params
-	const int LOW_THRESHOLD = 50;
-	const int RATIO         = 3;
-	const int KERNEL_SIZE   = 3;
-
-    // For drawing edges
-	FColor EDGE_COLOR = FColor::Yellow;
+    // For drawing flow arrows
+	FColor ARROW_COLOR = FColor::Green;
 
 	// Runs on its own thread
 	virtual void perform(void) override;
-
-	// Stores vertices computed on thread
-	static const int MAX_VERTICES = 1000;
-	cv::Point _vertices[MAX_VERTICES];
-	int _vertexCount;
-
-	// Helper
-	static int min(int a, int b) { return a < b ? a : b; }
 };

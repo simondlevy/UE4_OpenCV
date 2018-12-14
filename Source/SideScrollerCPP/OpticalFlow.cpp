@@ -1,12 +1,12 @@
 #pragma once
 
 /*
-* OpticalFlow.cpp: OpenCV demo algorithm for UnrealEngine4
-*
-* Copyright (C) 2017 Simon D. Levy
-*
-* MIT License
-*/
+ * OpticalFlow.cpp: OpenCV demo algorithm for UnrealEngine4
+ *
+ * Copyright (C) 2017 Simon D. Levy
+ *
+ * MIT License
+ */
 
 #include "OpticalFlow.h"
 #include "OnScreenDebug.h"
@@ -19,41 +19,39 @@
 #include <opencv2/video/tracking.hpp>
 #include <opencv2/core.hpp>
 
+#include "ArduEyeOpticalFlow.h"
+
 #include <cstdint>
 
 
 OpticalFlow::OpticalFlow(int width, int height) : VisionAlgorithm(width, height)
 {
-	_vertexCount = 0;
-	_prevgray = new cv::Mat(height, width, CV_8UC3);
-	_gotprev = false;
 }
 
 OpticalFlow::~OpticalFlow()
 {
-	delete _prevgray;
 }
 
 void OpticalFlow::perform(void)
 {
-	// Convert color image to grayscale
-	cv::Mat gray;
-	cv::cvtColor(*_bgrimg, gray, cv::COLOR_BGR2GRAY);
+	// Convert current color image to grayscale
+	static cv::Mat prev;
+	static bool gotprev;
+	cv::Mat curr;
+	cv::cvtColor(*_bgrimg, curr, cv::COLOR_BGR2GRAY);
 
-	if (_gotprev) {
+	if (gotprev) {
 
-		for (int j = 0; j < gray.rows; ++j) {
-			for (int k = 0; k < gray.cols; ++k) {
-			}
-		}
+		Debug::printf("%f %f", cv::mean(curr).val[0], cv::mean(prev).val[0]);
 	}
 
-	gray.copyTo(*_prevgray);
-	_gotprev = true;
+	curr.copyTo(prev);
+
+	gotprev = true;
 }
 
-void OpticalFlow::draw(AHUD* hud, int leftx, int topy) 
-{ 
+void OpticalFlow::draw(AHUD* hud, int leftx, int topy)
+{
 
 }
 
